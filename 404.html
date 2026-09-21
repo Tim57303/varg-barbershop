@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Страница не найдена</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0c1633">
+<!-- base нужен, чтобы стили и шрифты находились и на вложенных адресах. При смене адреса сайта поправьте href. -->
+<base href="https://tim57303.github.io/varg-barbershop/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  body{min-height:100vh;display:flex;flex-direction:column;background:var(--ink);color:var(--chalk)}
+  .nf{flex:1;display:grid;place-items:center;padding:60px var(--gutter);text-align:center}
+  .nf h1{font-size:clamp(6rem,26vw,16rem);line-height:.85;color:transparent;-webkit-text-stroke:3px var(--chalk);letter-spacing:.06em}
+  .nf p{max-width:30rem;margin:18px auto 28px;color:rgba(246,245,240,.78);font-size:1.1rem}
+  .nf .pole{height:12px;width:min(320px,70%);margin:0 auto 28px;background:var(--pole)}
+</style>
+</head>
+<body>
+<div class="nf">
+  <div>
+    <div class="pole" aria-hidden="true"></div>
+    <h1 class="display rough">404</h1>
+    <p>Такой страницы нет. Возможно, ссылка устарела или в адресе опечатка. Главная страница на месте.</p>
+    <a class="btn" href="./">На главную</a>
+  </div>
+</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6"/></filter></svg>
+</body>
+</html>

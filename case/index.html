@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кейс: сайт барбершопа ВАРГ</title>
+<meta name="description" content="Кейс: одностраничный сайт барбершопа с прокруткой-историей услуг, пояснениями терминов и онлайн-записью с оплатой. HTML, CSS, JavaScript без фреймворков.">
+<meta name="theme-color" content="#0c1633">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  .cs-hero{padding-block:clamp(44px,7vw,96px) clamp(40px,5vw,72px)}
+  .cs-hero h1{font-size:clamp(2.8rem,8vw,6.4rem);margin-block:20px 22px;max-width:14ch}
+  .cs-hero .lead{max-width:38rem;font-size:1.2rem;color:rgba(246,245,240,.82)}
+  .meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line-inv)}
+  .meta div{padding:16px 22px 0 0}
+  .meta dt{opacity:.6;margin-bottom:6px}
+  .meta dd{font-weight:600;line-height:1.35}
+  @media (max-width:820px){.meta{grid-template-columns:1fr 1fr;gap:0 16px}.meta div{padding-bottom:14px}}
+
+  .sec{padding-block:clamp(48px,6vw,88px)}
+  .sec h2{font-size:clamp(2rem,4.6vw,3.6rem);margin-block:16px 26px}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px)}
+  .two p{max-width:34rem;margin-bottom:14px}
+  @media (max-width:820px){.two{grid-template-columns:1fr}}
+
+  /* превью: экран компьютера и телефон с живым сайтом */
+  .stageview{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,56px);align-items:end}
+  .bframe{background:var(--ink-2);padding:10px;position:relative;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,0 100%)}
+  .bframe .bar{display:flex;gap:6px;padding:0 4px 10px}
+  .bframe .bar i{width:9px;height:9px;border-radius:50%;background:rgba(246,245,240,.3)}
+  .view{position:relative;overflow:hidden;background:var(--bone);width:100%}
+  .view iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0;background:var(--ink)}
+  .phone{background:var(--ink-2);padding:12px;border-radius:34px;width:min(100%,290px);margin-inline:auto}
+  .phone .view{border-radius:24px}
+  @media (max-width:820px){.stageview{grid-template-columns:1fr}}
+  .open{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+
+  .ideas{border-top:3px solid var(--ink)}
+  .idea{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:8px clamp(20px,4vw,64px);padding:22px 0;border-bottom:1px solid var(--line)}
+  .idea h3{font:600 1.5rem/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.04em}
+  .idea p{max-width:40rem;color:var(--ink)}
+  .idea small{display:block;margin-top:8px;color:var(--slate)}
+  @media (max-width:820px){.idea{grid-template-columns:1fr}}
+
+  .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 20px;margin-top:8px}
+  .nums b{display:block;font:700 clamp(2.2rem,5vw,3.6rem)/1 var(--f-display);letter-spacing:.02em}
+  .nums span{display:block;margin-top:8px;color:rgba(246,245,240,.72);font-size:.95rem}
+  @media (max-width:820px){.nums{grid-template-columns:1fr 1fr}}
+
+  .swatches{display:flex;flex-wrap:wrap;gap:10px}
+  .sw{width:112px}
+  .sw i{display:block;height:64px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);border:1px solid var(--line)}
+  .sw b{display:block;margin-top:8px;font:600 .9rem var(--f-mono)}
+  .sw span{color:var(--slate);font-size:.82rem}
+  .types{display:grid;gap:18px;margin-top:26px}
+  .types div{border-top:1px solid var(--line);padding-top:12px;display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:baseline}
+  .types .sp1{font:700 2.4rem/1 var(--f-display);text-transform:uppercase;letter-spacing:.03em}
+  .types .sp2{font:500 1.15rem var(--f-body)}
+  .types .sp3{font:500 1.05rem var(--f-mono)}
+  @media (max-width:560px){.types div{grid-template-columns:1fr}}
+
+  pre.code{background:var(--ink);color:var(--chalk);padding:22px;overflow-x:auto;font:400 .86rem/1.6 var(--f-mono);clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%)}
+  pre.code .k{color:#ff9a90}pre.code .c{color:#8b95b0}
+  .cta{padding-block:clamp(48px,6vw,88px)}
+  .cta h2{font-size:clamp(2rem,5vw,4rem);margin-bottom:22px}
+</style>
+</head>
+<body>
+<header class="nav dark">
+  <div class="wrap">
+    <a class="logo" href="../">
+      <span class="logo__pole" aria-hidden="true"></span>
+      <span class="logo__txt"><span class="logo__name">Варг</span><span class="logo__sub">Кейс</span></span>
+    </a>
+    <a class="btn btn--sm" href="../">Открыть сайт</a>
+  </div>
+</header>
+
+<main>
+<section class="cs-hero dark">
+  <div class="wrap">
+    <p class="eyebrow mono">Кейс · сайт барбершопа</p>
+    <h1 class="display">Сайт, который хочется листать</h1>
+    <p class="lead">Одностраничный сайт барбершопа у метро «Студенческая» в Москве: мужской характер, скандинавская сдержанность и красно-бело-синяя палитра барберского полюса. Услуги объяснены человеческим языком, запись занимает четыре шага.</p>
+    <dl class="meta">
+      <div><dt class="mono">Тип проекта</dt><dd>Лендинг с онлайн-записью</dd></div>
+      <div><dt class="mono">Что сделано</dt><dd>Дизайн, вёрстка, интерфейс записи, тексты</dd></div>
+      <div><dt class="mono">Технологии</dt><dd>HTML, CSS, JavaScript. Без фреймворков</dd></div>
+      <div><dt class="mono">Публикация</dt><dd>GitHub Pages, свои шрифты</dd></div>
+    </dl>
+  </div>
+</section>
+
+<span class="cut cut--to-light" style="background:linear-gradient(176.6deg,var(--ink) 49.6%,var(--bone) 50%)"></span>
+
+<section class="sec">
+  <div class="wrap">
+    <p class="eyebrow mono">Живой сайт</p>
+    <h2 class="display">Листайте прямо здесь</h2>
+    <div class="stageview">
+      <div class="bframe">
+        <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="view" id="vDesk"><iframe id="fDesk" src="../index.html" title="Сайт на компьютере" loading="lazy" width="1280" height="800"></iframe></div>
+      </div>
+      <div class="phone">
+        <div class="view" id="vPhone"><iframe id="fPhone" src="../index.html" title="Сайт на телефоне" loading="lazy" width="390" height="800"></iframe></div>
+      </div>
+    </div>
+    <div class="open">
+      <a class="btn" href="../" target="_blank" rel="noopener">Открыть сайт целиком</a>
+      <span class="mono" style="color:var(--slate)">Слева компьютер, справа телефон</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow mono">Задача</p>
+      <h2 class="display">Не «ещё один барбершоп»</h2>
+      <p>Сайты барбершопов выглядят одинаково: тёмный фон, золото и скрещённые ножницы. Нужен был сайт с характером, который считывается за секунду и не похож на шаблон.</p>
+      <p>Одновременно он должен работать как инструмент: клиент понимает, что ему предлагают, выбирает время и записывается без звонка.</p>
+    </div>
+    <div>
+      <p class="eyebrow mono">Опорные точки</p>
+      <h2 class="display">Три ограничения</h2>
+      <p><b>Настроение.</b> Мужской дух, грубая текстура, скандинавская сдержанность, ретро-барбершоп.</p>
+      <p><b>Палитра.</b> Красный, белый и синий, как на барберском полюсе. Без золота и чёрно-золотого клише.</p>
+      <p><b>Понятность.</b> «Fade», «окантовка», «под насадку» знакомы не всем. Сайт должен объяснять, а не стесняться.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow mono">Решение</p>
+    <h2 class="display">Пять ходов</h2>
+    <div class="ideas">
+      <div class="idea"><h3>Проход бритвой</h3><div><p>Раздел услуг — сцена, которая проигрывается при прокрутке. Фото на весь экран сужается косым срезом, справа выезжает список, и каждый новый кадр открывается линией лезвия. Один приём, всё остальное неподвижно.</p><small>Анимация построена на прокрутке и CSS-переменных, без библиотек.</small></div></div>
+      <div class="idea"><h3>Язык клиента</h3><div><p>У каждой услуги и у тегов мастеров есть значок «?». По нажатию появляется короткое пояснение: что это, как выглядит, сколько стоит, и кнопка «Записаться» с уже выбранной услугой.</p><small>14 пояснений. Шкала длины насадок показана в миллиметрах.</small></div></div>
+      <div class="idea"><h3>Запись за четыре шага</h3><div><p>Услуга и мастер, день и время, контакты, оплата. Занятое время зачёркнуто, время закрепляется за клиентом. Оплата: в салоне, предоплата или сразу, с переходом в платёжный сервис.</p><small>Форма проверяет телефон, требует согласие на обработку данных и не даёт записаться на занятый слот.</small></div></div>
+      <div class="idea"><h3>Текстура и острые детали</h3><div><p>Зерно поверх всей страницы, шероховатый край крупных букв, скошенные углы кнопок и блоков, диагональные срезы между разделами. Тактильность без картинок-фонов.</p><small>Текстура — один небольшой SVG-фильтр, а не тяжёлые изображения.</small></div></div>
+      <div class="idea"><h3>Шаблон под клиента</h3><div><p>Весь контент вынесен в один файл настроек: название, контакты, цены, мастера, фото, тексты, цвета. Чтобы собрать сайт для нового салона, достаточно поменять этот файл и фотографии.</p><small>Инструкция по передаче клиенту лежит рядом с проектом.</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark">
+  <div class="wrap">
+    <p class="eyebrow mono">В цифрах</p>
+    <h2 class="display" style="margin-bottom:30px">Лёгкий и независимый</h2>
+    <div class="nums">
+      <div><b>33 КБ</b><span>весь код в сжатом виде: разметка, стили, скрипты, настройки</span></div>
+      <div><b>0</b><span>фреймворков и внешних библиотек</span></div>
+      <div><b>208 КБ</b><span>три шрифта с кириллицей, хранятся на самом сайте</span></div>
+      <div><b>14</b><span>услуг с пояснениями и ценами</span></div>
+    </div>
+  </div>
+</section>
+
+<span class="cut cut--to-light"></span>
+
+<section class="sec">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow mono">Фирменный стиль</p>
+      <h2 class="display">Палитра и шрифты</h2>
+      <div class="swatches" id="sw"></div>
+    </div>
+    <div class="types" style="margin-top:0">
+      <div><span class="mono" style="color:var(--slate)">Заголовки · Oswald</span><span class="sp1">Острый срез</span></div>
+      <div><span class="mono" style="color:var(--slate)">Текст · Manrope</span><span class="sp2">Классические стрижки, борода и бритьё опасной бритвой без спешки.</span></div>
+      <div><span class="mono" style="color:var(--slate)">Цены · IBM Plex Mono</span><span class="sp3">2 500 ₽ · 60 мин</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow mono">Под капотом</p>
+    <h2 class="display">Один файл настроек</h2>
+<pre class="code"><span class="c">// config.js: всё, что меняется под клиента</span>
+window.SITE = {
+  brand:    { <span class="k">name</span>: "ВАРГ", <span class="k">city</span>: "Москва" },
+  contacts: { <span class="k">phone</span>: "+74950000000", <span class="k">address</span>: "ул. Студенческая, 31" },
+  prices:   { <span class="k">services</span>: [ { <span class="k">g</span>: "Стрижки", <span class="k">items</span>: [ { <span class="k">id</span>: "fade", <span class="k">n</span>: "Fade и машинка", <span class="k">m</span>: 50, <span class="k">p</span>: 2300 } ] } ] },
+  masters:  { <span class="k">list</span>: [ { <span class="k">name</span>: "Артём", <span class="k">tags</span>: [["fade", "Fade"]] } ] },
+  integrations: { <span class="k">bookingEndpoint</span>: "", <span class="k">paymentUrl</span>: "", <span class="k">yandexMetrika</span>: "" }
+};</pre>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow mono">Честно о границах</p>
+      <h2 class="display">Что демо, а что боевое</h2>
+    </div>
+    <div>
+      <p><b>Боевое:</b> дизайн, вёрстка, адаптив, анимации, пояснения, форма, проверки, SEO-разметка, политика конфиденциальности.</p>
+      <p><b>Демо:</b> фотографии стоковые, запись сохраняется в браузере, оплата ведёт на заглушку, адрес и телефон вымышленные. Реальную запись и приём платежей подключают под клиента через готовый сервис записи или собственный сервер.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta dark" id="cta" hidden>
+  <div class="wrap">
+    <p class="eyebrow mono">Хотите такой же сайт?</p>
+    <h2 class="display">Сделаем под ваш салон</h2>
+    <a class="btn" id="ctaBtn" target="_blank" rel="noopener">Написать</a>
+  </div>
+</section>
+</main>
+
+<footer class="foot dark" style="padding-block:28px">
+  <div class="wrap"><div class="foot__bottom mono" style="border:0;padding:0"><span>Кейс · сайт барбершопа ВАРГ</span><a href="../">Открыть сайт</a></div></div>
+</footer>
+
+<script src="../config.js"></script>
+<script>
+  /* Ваши контакты для кнопки «Написать»: пусто — блок скрыт. Например: { label: "Написать в Telegram", url: "https://t.me/ваш_ник" } */
+  var SELLER = { label: "Написать", url: "" };
+
+  (function () {
+    var S = window.SITE || {};
+    Object.entries(S.theme || {}).forEach(function (kv) { document.documentElement.style.setProperty("--" + kv[0], kv[1]); });
+
+    // масштаб превью: сайт рисуется в «настоящей» ширине и уменьшается под рамку
+    function fit(viewId, frameId, w, h) {
+      var v = document.getElementById(viewId), f = document.getElementById(frameId);
+      function upd() { var k = v.clientWidth / w; f.style.transform = "scale(" + k + ")"; v.style.height = (h * k) + "px"; }
+      upd(); addEventListener("resize", upd);
+    }
+    fit("vDesk", "fDesk", 1280, 800);
+    fit("vPhone", "fPhone", 390, 800);
+
+    // палитра из настроек сайта
+    var names = { ink: "Чернильный", blue: "Барберский синий", red: "Красный полюса", bone: "Холодная кость", chalk: "Мел", slate: "Сланец" };
+    document.getElementById("sw").innerHTML = Object.keys(names).map(function (k) {
+      var c = (S.theme || {})[k]; return c ? '<div class="sw"><i style="background:' + c + '"></i><b>' + c + '</b><span>' + names[k] + '</span></div>' : "";
+    }).join("");
+
+    if (SELLER.url) { var b = document.getElementById("ctaBtn"); b.href = SELLER.url; b.textContent = SELLER.label; document.getElementById("cta").hidden = false; }
+  })();
+</script>
+</body>
+</html>
