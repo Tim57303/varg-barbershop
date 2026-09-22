@@ -124,8 +124,16 @@ h2.display{font-size:clamp(2.4rem,5.6vw,4.5rem)}
 .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
 .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 
-/* Мобильное меню: простая панель под шапкой, без анимации открытия — переключается атрибутом hidden */
-.mnav{display:none;background:var(--ink);border-bottom:6px solid transparent;border-image:var(--pole) 6;flex-direction:column;padding:6px var(--gutter) calc(18px + env(safe-area-inset-bottom,0px))}
+/* Мобильное меню: закреплённая панель под шапкой — иначе на прокрученной странице она
+   открывалась бы у самого верха документа, вне экрана. Переключается атрибутом hidden. */
+.mnav-scrim{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;z-index:76;background:rgba(12,22,51,.5)}
+.mnav-scrim:not([hidden]){display:block}
+.mnav{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:78;
+  max-height:calc(100svh - var(--nav-h));overflow-y:auto;
+  background:var(--ink);border-bottom:6px solid transparent;border-image:var(--pole) 6;
+  flex-direction:column;padding:6px var(--gutter) calc(18px + env(safe-area-inset-bottom,0px));
+}
 .mnav:not([hidden]){display:flex}
 .mnav a{color:var(--chalk);text-decoration:none;font:600 1.05rem var(--f-display);text-transform:uppercase;letter-spacing:.05em;padding:14px 0;border-bottom:1px solid var(--line-inv)}
 .mnav__cta{border:0;justify-content:center;text-align:center;margin-top:14px}

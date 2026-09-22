@@ -42,13 +42,17 @@ document.addEventListener("keydown", e => {
   if (a && a.dataset.go && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); goTo(a.dataset.go); }
 });
 
-/* ── Мобильное меню: гамбургер в шапке открывает список разделов ── */
+/* ── Мобильное меню: гамбургер в шапке открывает список разделов.
+   Панель зафиксирована под шапкой (position:fixed), а не просто вставлена в поток
+   документа — иначе на прокрученной вниз странице она открывалась бы у самого верха
+   страницы, вне видимой области, и казалось бы, что кнопка не работает. ── */
 (() => {
-  const btn = $("#burgerBtn"), panel = $("#mnav");
+  const btn = $("#burgerBtn"), panel = $("#mnav"), scrim = $("#mnavScrim");
   if (!btn || !panel) return;
-  const setOpen = open => { btn.setAttribute("aria-expanded", String(open)); panel.hidden = !open; };
+  const setOpen = open => { btn.setAttribute("aria-expanded", String(open)); panel.hidden = !open; if (scrim) scrim.hidden = !open; };
   btn.addEventListener("click", () => setOpen(panel.hidden));
   panel.addEventListener("click", e => { if (e.target.closest("[data-go]")) setOpen(false); });
+  scrim?.addEventListener("click", () => setOpen(false));
   addEventListener("keydown", e => { if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); } });
   addEventListener("resize", () => { if (innerWidth > 920) setOpen(false); });
 })();
