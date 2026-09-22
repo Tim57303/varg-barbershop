@@ -30,7 +30,7 @@
   </filter>
 </svg>
 
-<a class="skip" role="link" tabindex="0" data-go="uslugi">Перейти к содержимому</a>
+<a class="skip" role="link" tabindex="0" data-go="zapis">Перейти к содержимому</a>
 
 <header class="nav dark">
   <div class="wrap">
@@ -45,56 +45,27 @@
       <a role="link" tabindex="0" data-go="raboty">Работы</a>
       <a role="link" tabindex="0" data-go="kontakty">Как найти</a>
     </nav>
-    <a class="btn btn--sm" role="link" tabindex="0" data-go="zapis">Записаться</a>
+    <a class="btn btn--sm nav__cta" role="link" tabindex="0" data-go="zapis">Записаться</a>
+    <button class="burger" id="burgerBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mnav" aria-label="Открыть меню">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<nav class="mnav" id="mnav" aria-label="Разделы (мобильное меню)" hidden>
+  <a role="link" tabindex="0" data-go="uslugi">Услуги</a>
+  <a role="link" tabindex="0" data-go="ceny">Цены</a>
+  <a role="link" tabindex="0" data-go="mastera">Мастера</a>
+  <a role="link" tabindex="0" data-go="raboty">Работы</a>
+  <a role="link" tabindex="0" data-go="kontakty">Как найти</a>
+  <a class="btn mnav__cta" role="link" tabindex="0" data-go="zapis">Записаться</a>
+</nav>
 
 <main id="top">
 
 <section class="hero dark" id="hero"></section>
 
 <div class="marquee dark" aria-hidden="true"><div class="marquee__track"></div></div>
-
-<section class="stage" id="uslugi" aria-label="Услуги"></section>
-
-<span class="cut cut--to-light" style="margin-top:-1px"></span>
-
-<section class="prices" id="ceny">
-  <div class="wrap">
-    <div class="prices__head" id="pricesHead"></div>
-    <div class="price-grid" id="priceGrid"></div>
-    <div class="guide chamfer" id="guide"></div>
-  </div>
-</section>
-
-<span class="cut cut--to-dark"></span>
-
-<section class="masters dark" id="mastera">
-  <div class="wrap">
-    <div class="masters__head" id="mastersHead"></div>
-    <div class="mgrid" id="mgrid"></div>
-  </div>
-</section>
-
-<span class="cut cut--to-light"></span>
-
-<section class="works" id="raboty">
-  <div class="wrap">
-    <div class="works__head" id="worksHead"></div>
-    <div class="mosaic" id="mosaic"></div>
-  </div>
-</section>
-
-<span class="cut cut--to-dark"></span>
-
-<section class="place dark" id="mesto">
-  <div class="wrap place__grid">
-    <div id="placeText"></div>
-    <div class="place__photos" id="placePhotos"></div>
-  </div>
-</section>
-
-<span class="cut cut--to-red" style="background:linear-gradient(176.6deg,var(--ink) 49.6%,var(--red) 50%)"></span>
 
 <section class="book dark" id="zapis">
   <div class="wrap book__grid">
@@ -191,7 +162,7 @@
       </div>
     </div>
     <div class="map" id="map" role="img" aria-label="Схема: от метро Студенческая к барбершопу около четырёх минут пешком">
-      <svg viewBox="0 20 640 410" preserveAspectRatio="xMidYMid meet">
+      <svg viewBox="0 20 640 410" preserveAspectRatio="xMidYMid slice">
         <rect width="640" height="460" fill="#efede6"/>
         <path class="river" d="M0 0H640V64C520 96 430 40 300 78S90 120 0 92Z"/>
         <text class="lbl" x="34" y="44" transform="rotate(3 34 44)">р. Москва</text>
@@ -242,6 +213,43 @@
         <text class="lbl" x="20" y="418" style="opacity:.7">Схема, без масштаба</text>
       </svg>
     </div>
+  </div>
+</section>
+
+<span class="cut cut--to-dark"></span>
+
+<section class="stage" id="uslugi" aria-label="Услуги"></section>
+
+<span class="cut cut--to-light" style="margin-top:-1px"></span>
+
+<section class="works" id="raboty">
+  <div class="wrap">
+    <div class="works__head" id="worksHead"></div>
+    <div class="mosaic" id="mosaic"></div>
+  </div>
+</section>
+
+<section class="prices" id="ceny">
+  <div class="wrap">
+    <div class="prices__head" id="pricesHead"></div>
+    <div class="price-grid" id="priceGrid"></div>
+    <div class="guide chamfer" id="guide"></div>
+  </div>
+</section>
+
+<span class="cut cut--to-dark"></span>
+
+<section class="masters dark" id="mastera">
+  <div class="wrap">
+    <div class="masters__head" id="mastersHead"></div>
+    <div class="mgrid" id="mgrid"></div>
+  </div>
+</section>
+
+<section class="place dark" id="mesto">
+  <div class="wrap place__grid">
+    <div id="placeText"></div>
+    <div class="place__photos" id="placePhotos"></div>
   </div>
 </section>
 

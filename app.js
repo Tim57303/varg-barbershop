@@ -42,6 +42,17 @@ document.addEventListener("keydown", e => {
   if (a && a.dataset.go && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); goTo(a.dataset.go); }
 });
 
+/* ── Мобильное меню: гамбургер в шапке открывает список разделов ── */
+(() => {
+  const btn = $("#burgerBtn"), panel = $("#mnav");
+  if (!btn || !panel) return;
+  const setOpen = open => { btn.setAttribute("aria-expanded", String(open)); panel.hidden = !open; };
+  btn.addEventListener("click", () => setOpen(panel.hidden));
+  panel.addEventListener("click", e => { if (e.target.closest("[data-go]")) setOpen(false); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); } });
+  addEventListener("resize", () => { if (innerWidth > 920) setOpen(false); });
+})();
+
 /* ═══ Сборка страницы ═══ */
 (function render() {
   const B = SITE.brand, M = C.metro;
@@ -429,6 +440,36 @@ $$(".work").forEach(w => {
   const getPay = () => $("input[name=pay]:checked", paysEl)?.value || "salon";
   setSvc("combo");
 
+  /* Чипы «Услуга» и «Мастер» — обычные radio, а их штатно нельзя снять повторным
+     кликом. Здесь — можно: щёлкнули по уже выбранному чипу (мышью или тапом) —
+     он снимается, оставляя «не выбрано».
+     Клик по подписи (input скрыт через pointer-events:none) браузер обрабатывает
+     в два шага: сначала событие click с target = подпись, затем — как часть
+     штатного поведения label — второе, синтетическое click с target = сам input.
+     pointerdown запоминает, был ли input отмечен ДО этого нажатия; если да —
+     снимаем отметку самостоятельно. Делаем это НЕ через preventDefault: у
+     radio/checkbox отмена клика откатывает checked к состоянию ДО клика, то
+     есть обратно в «отмечено» — ровно туда, откуда мы хотим уйти. Поэтому просто
+     ждём, пока браузер закончит своё стандартное действие, и снимаем отметку
+     следующим тиком. */
+  function makeDeselectable(container) {
+    let pending = null;
+    container.addEventListener("pointerdown", e => {
+      const chip = e.target.closest(".chip");
+      const input = chip?.querySelector("input[type=radio]");
+      pending = input?.checked ? input : null;
+    });
+    container.addEventListener("click", e => {
+      if (e.target.tagName !== "INPUT") return;           // ждём именно второй, синтетический клик — по самому input
+      const was = pending; pending = null;                // разово: годится только для клика сразу после pointerdown
+      if (e.target !== was) return;
+      const input = e.target;
+      setTimeout(() => { input.checked = false; input.dispatchEvent(new Event("change", { bubbles: true })); }, 0);
+    });
+  }
+  makeDeselectable(svcBox);
+  makeDeselectable(masterBox);
+
   const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; });
   daysEl.innerHTML = days.map((d, i) => `
     <label class="day"><input type="radio" name="day" value="${i}" ${i === 0 ? "checked" : ""}>
@@ -437,6 +478,7 @@ $$(".work").forEach(w => {
 
   function renderPays() {
     const s = getSvc(), cur = getPay();
+    if (!s) { paysEl.innerHTML = `<p class="fine" style="grid-column:1/-1">Выберите услугу — тогда появятся способы оплаты.</p>`; return; }
     paysEl.innerHTML = PAY.map(p => `<label class="pay"><input type="radio" name="pay" value="${p.id}" ${p.id === cur ? "checked" : ""}>
       <span class="pay__c"><b>${p.n}</b><small>${p.d}</small><em>${p.amt(s) ? rub(p.amt(s)) : "0 ₽ сейчас"}</em></span></label>`).join("");
   }
@@ -452,8 +494,14 @@ $$(".work").forEach(w => {
     summary();
   }
   function summary() {
-    const s = getSvc(), d = days[dayIdx()], m = MASTERS.find(x => x.id === getMaster()), pay = PAY.find(p => p.id === getPay());
-    const now = pay.amt(s);
+    const s = getSvc(), d = days[dayIdx()], m = MASTERS.find(x => x.id === getMaster());
+    if (!s) {
+      $("#sumTxt").textContent = "Сначала выберите услугу";
+      $("#sumMaster").textContent = `${m.n} · ${state.time == null ? "выберите время" : whenText(d, state.time)}`;
+      $("#sumNow").textContent = ""; $("#sumPrice").textContent = "—"; $("#submitLbl").textContent = "Записаться";
+      return;
+    }
+    const pay = PAY.find(p => p.id === getPay()), now = pay.amt(s);
     $("#sumTxt").textContent = `${s.n} · ${s.m} мин`;
     $("#sumMaster").textContent = `${m.n} · ${state.time == null ? "выберите время" : whenText(d, state.time)}`;
     $("#sumNow").textContent = now ? "К оплате сейчас" : "Итого, оплата в салоне";
@@ -476,7 +524,11 @@ $$(".work").forEach(w => {
   });
 
   function fail(msg, el) { err.textContent = msg; el?.focus?.(); }
-  const busyBtn = on => { submitBtn.disabled = on; $("#submitLbl").textContent = on ? "Записываем…" : (PAY.find(p => p.id === getPay()).amt(getSvc()) ? "Записаться и оплатить" : "Записаться"); };
+  const busyBtn = on => {
+    submitBtn.disabled = on;
+    const svcNow = getSvc(), willPay = svcNow && PAY.find(p => p.id === getPay()).amt(svcNow);
+    $("#submitLbl").textContent = on ? "Записываем…" : (willPay ? "Записаться и оплатить" : "Записаться");
+  };
 
   /* Переход к оплате: PAYMENT_URL — шаблон ссылки платёжного сервиса */
   function openPayment(b) {
@@ -488,7 +540,8 @@ $$(".work").forEach(w => {
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
-    const digits = phoneEl.value.replace(/\D/g, "");
+    const digits = phoneEl.value.replace(/\D/g, ""), svc = getSvc();
+    if (!svc) return fail("Выберите услугу.", svcBox.querySelector("input"));
     if (state.time == null) return fail("Выберите день и свободное время.", slotsEl.querySelector("input:not(:disabled)"));
     if (!nameEl.value.trim()) return fail("Напишите, как к вам обращаться.", nameEl);
     if (digits.length < 11) return fail(`Проверьте телефон: нужно 11 цифр, например ${C.phoneText}.`, phoneEl);
@@ -496,7 +549,7 @@ $$(".work").forEach(w => {
     err.textContent = "";
 
     const d = days[dayIdx()], date = iso(d), hour = state.time, sel = getMaster();
-    const svc = getSvc(), payDef = PAY.find(p => p.id === getPay()), amount = payDef.amt(svc);
+    const payDef = PAY.find(p => p.id === getPay()), amount = payDef.amt(svc);
     const candidates = sel === "any" ? MASTER_IDS.filter(m => !store.busy(keyOf(date, hour, m))) : [sel];
     let booking = null;
 
