@@ -111,7 +111,10 @@ h2.display{font-size:clamp(2.4rem,5.6vw,4.5rem)}
 .nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .logo__pole{width:14px;height:34px;background:var(--pole);background-size:auto;border:2px solid var(--chalk);flex:none;animation:pole 2.4s linear infinite}
-@keyframes pole{to{background-position:0 48px}}
+/* Полоса под 45°, период рисунка 48px. Чистый сдвиг по вертикали покрывает
+   меньше рисунка, чем кажется (косая проекция), поэтому шаг равен 48×√2 ≈ 67.88px —
+   иначе на каждом цикле виден скачок/остановка, когда узор дёргается назад. */
+@keyframes pole{to{background-position:0 67.88px}}
 .logo__txt{display:flex;flex-direction:column;line-height:1}
 .logo__name{font:700 1.7rem/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase}
 .logo__sub{font:500 .62rem/1.5 var(--f-mono);letter-spacing:.24em;text-transform:uppercase;opacity:.7;margin-top:3px}
@@ -151,8 +154,9 @@ h2.display{font-size:clamp(2.4rem,5.6vw,4.5rem)}
 .hero{background:var(--ink);color:var(--chalk);padding-block:clamp(40px,6vw,88px) clamp(56px,7vw,100px)}
 .hero__grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center}
 .hero h1{font-size:clamp(3.1rem,8.6vw,7.6rem);margin-block:22px 26px}
-.hero h1 em{font-style:normal;color:var(--red);-webkit-text-stroke:0}
-.hero h1 .thin{display:block;-webkit-text-stroke:2px var(--chalk);color:transparent}
+/* margin-top даёт место «бровке» над Й — при line-height:.94 она задевала строку выше */
+.hero h1 em{font-style:normal;color:var(--red);-webkit-text-stroke:0;display:inline-block;margin-top:.14em}
+.hero h1 .thin{display:block;-webkit-text-stroke:2px var(--chalk);color:transparent;margin-top:.14em}
 .hero__lead{max-width:34rem;font-size:1.15rem;color:rgba(246,245,240,.82)}
 .hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin-top:34px}
 .facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:0;margin-top:46px;border-top:1px solid var(--line-inv)}

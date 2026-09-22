@@ -262,9 +262,14 @@ if (window.IMG) $$("img[data-img]").forEach(i => { const u = IMG[i.dataset.img];
     svcs.forEach((s, j) => s.classList.toggle("on", j === i));
     bars.forEach((b, j) => b.classList.toggle("on", j <= i));
   }
+  /* total (высота сцены за вычетом экрана) не меняется во время скролла — читаем её
+     один раз и на resize, а не в каждом кадре. update() иначе на каждый кадр прокрутки
+     читал offsetHeight сразу после того, как сам же прошлым кадром поменял --k (а тот
+     двигает width/left), — браузер вынужден было каждый раз пересчитывать раскладку
+     синхронно прямо в кадре анимации. Именно это давало те самые жёсткие рывки. */
+  let total = 1;
   function update() {
     ticking = false;
-    const total = stage.offsetHeight - innerHeight;
     const s = clamp(-stage.getBoundingClientRect().top / total, 0, 1);
     const t = clamp(s / 0.18, 0, 1);
     stage.style.setProperty("--k", (t * t * (3 - 2 * t)).toFixed(4));
@@ -272,9 +277,10 @@ if (window.IMG) $$("img[data-img]").forEach(i => { const u = IMG[i.dataset.img];
     setActive(Math.floor(rest * N));
   }
   const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  const measure = () => { total = stage.offsetHeight - innerHeight || 1; req(); };
   addEventListener("scroll", req, { passive: true });
-  addEventListener("resize", req);
-  update();
+  addEventListener("resize", measure);
+  measure();
 
   svcs.forEach((s, j) => s.addEventListener("click", e => {
     if (e.target.closest("a")) return;
