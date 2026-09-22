@@ -110,11 +110,16 @@ h2.display{font-size:clamp(2.4rem,5.6vw,4.5rem)}
 }
 .nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo__pole{width:14px;height:34px;background:var(--pole);background-size:auto;border:2px solid var(--chalk);flex:none;animation:pole 2.4s linear infinite}
-/* Полоса под 45°, период рисунка 48px. Чистый сдвиг по вертикали покрывает
-   меньше рисунка, чем кажется (косая проекция), поэтому шаг равен 48×√2 ≈ 67.88px —
-   иначе на каждом цикле виден скачок/остановка, когда узор дёргается назад. */
-@keyframes pole{to{background-position:0 67.88px}}
+/* Движущаяся полоса: узор внутри рисуется ПРЯМЫМ (0deg), а наклон даёт поворот
+   контейнера на 45°, не сама градиентная математика. Раньше шаг диагонального
+   узора приходилось округлять (48×√2 — бесконечная дробь), и на длинной полосе
+   это чуть заметнее к одному концу, чем к другому. Прямой узор двигается на
+   ровные 48px без всякого округления — на любой высоте одинаково. */
+.logo__pole{position:relative;overflow:hidden;width:14px;height:34px;border:2px solid var(--chalk);flex:none}
+.logo__pole::before{content:"";position:absolute;left:50%;top:50%;width:1000px;height:1000px;margin:-500px 0 0 -500px;transform:rotate(45deg);background:repeating-linear-gradient(0deg,var(--red) 0 12px,var(--chalk) 12px 24px,var(--blue) 24px 36px,var(--chalk) 36px 48px);animation:pole 2.4s linear infinite}
+/* Узор внутри полосы теперь прямой (0deg, наклон даёт поворот блока), период 48px —
+   ровный целый шаг, без округления и без скачка на стыке цикла. */
+@keyframes pole{to{background-position:0 48px}}
 .logo__txt{display:flex;flex-direction:column;line-height:1}
 .logo__name{font:700 1.7rem/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase}
 .logo__sub{font:500 .62rem/1.5 var(--f-mono);letter-spacing:.24em;text-transform:uppercase;opacity:.7;margin-top:3px}
@@ -177,7 +182,8 @@ h2.display{font-size:clamp(2.4rem,5.6vw,4.5rem)}
   -webkit-mask:linear-gradient(90deg,#000 0 100%);mask:linear-gradient(90deg,#000 0 100%);opacity:.75;
 }
 .hero__ruler::before{content:"";position:absolute;right:0;top:0;bottom:0;width:22px;background:repeating-linear-gradient(to bottom,var(--chalk) 0 2px,transparent 2px 50px);}
-.hero__pole{position:absolute;right:-1px;top:38px;bottom:0;width:14px;background:var(--pole);animation:pole 2.4s linear infinite;z-index:2}
+.hero__pole{position:absolute;right:-1px;top:38px;bottom:0;width:14px;overflow:hidden;z-index:2}
+.hero__pole::before{content:"";position:absolute;left:50%;top:50%;width:1200px;height:1200px;margin:-600px 0 0 -600px;transform:rotate(45deg);background:repeating-linear-gradient(0deg,var(--red) 0 12px,var(--chalk) 12px 24px,var(--blue) 24px 36px,var(--chalk) 36px 48px);animation:pole 2.4s linear infinite}
 .stamp{
   position:absolute;left:-48px;bottom:-34px;width:150px;height:150px;z-index:3;
   color:var(--chalk);transform:rotate(-12deg);
@@ -608,7 +614,7 @@ select.ctl{background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .marquee__track,.logo__pole,.hero__pole,.place__photos .pole,.stage__hint svg{animation:none}
+  .marquee__track,.logo__pole::before,.hero__pole::before,.place__photos .pole,.stage__hint svg{animation:none}
   .ph,.ph::before,.svc__body,.svc__name,.work img,.map .draw,.map .pin,.map .fadein{transition:none}
   .map:not(.pre) .ring{animation:none}
 }
