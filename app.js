@@ -377,7 +377,9 @@ $$(".work").forEach(w => {
         if (this.busy(keyOf(b.date, b.hour, b.master))) return { ok: false };
         save([...load(), b]);
         if (BOOKING_ENDPOINT) {
-          try { await fetch(BOOKING_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) }); } catch {}
+          /* text/plain — «простой» запрос без предварительного OPTIONS (preflight):
+             Google Apps Script на такие запросы не отвечает и тихо блокирует POST. */
+          try { await fetch(BOOKING_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(b) }); } catch {}
         }
         return { ok: true };
       },
