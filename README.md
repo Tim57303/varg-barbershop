@@ -19,6 +19,7 @@
 | `404.html`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `og.jpg` | служебное для поисковиков и соцсетей |
 | `case/` | страница-кейс с живым превью сайта |
 | `build.rb` | сборка `dist/varg-single.html`: весь сайт в одном файле |
+| `bot/` | Telegram-бот записи и админки (Cloudflare Workers + D1), см. [bot/README.md](bot/README.md) |
 
 ## Возможности
 

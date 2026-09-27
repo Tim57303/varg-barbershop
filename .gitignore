@@ -1,3 +1,5 @@
 .claude/
 dist/
 .DS_Store
+bot/node_modules/
+bot/.wrangler/
