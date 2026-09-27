@@ -82,8 +82,8 @@ window.SITE = {
        telegramBotToken — токен от @BotFather; telegramChatIds — ваши chat_id (напишите
        боту /start, он подскажет id), можно несколько. Пусто — не отправлять.
        Ограничение: только уведомление, без кнопок «Подтвердить/Отменить» (для них — bot/). */
-    telegramBotToken: "",
-    telegramChatIds: [],
+    telegramBotToken: "8665056001:AAHO9v5xMeRp1PFVbBoef591VyGCA9NeWaY",
+telegramChatIds: ["7460178287"],
     /* Ссылка на оплату в вашем платёжном сервисе. Плейсхолдеры: {amount} — сумма, {order} — номер записи, {desc} — описание.
        Пример: "https://pay.example.ru/?sum={amount}&order={order}&comment={desc}". Пусто — демо-режим. */
     paymentUrl: "",
