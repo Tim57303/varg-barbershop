@@ -22,6 +22,8 @@ const GLOSS = SITE.gloss;
 const MASTERS = [{ id: "any", n: SITE.masters.anyLabel }, ...SITE.masters.list.map(m => ({ id: m.id, n: m.name }))];
 const HOURS = { from: SITE.booking.firstHour, to: SITE.booking.lastHour };
 const BOOKING_ENDPOINT = SITE.integrations.bookingEndpoint || "";
+const TG_TOKEN = SITE.integrations.telegramBotToken || "";
+const TG_CHAT_IDS = (SITE.integrations.telegramChatIds || []).filter(Boolean);
 const PAYMENT_URL = SITE.integrations.paymentUrl || "";
 const PREPAY = SITE.booking.prepayPercent || 30;
 const WD = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
@@ -353,6 +355,25 @@ $$(".work").forEach(w => {
   const keyOf = (date, hour, master) => `${date}_${hour}_${master}`;
   const whenText = (d, h) => `${WD[d.getDay()]}, ${d.getDate()} ${MON[d.getMonth()]}, ${pad(h)}:00`;
 
+  /* ── Уведомление в Telegram прямо из браузера, без сервера ──
+     GET без своих заголовков — «простой» запрос, браузер не блокирует его отправку
+     предварительным OPTIONS даже если сам Telegram ответит без CORS-заголовков. */
+  function notifyTelegram(b) {
+    if (!TG_TOKEN || !TG_CHAT_IDS.length) return;
+    const svc = FLAT.find(x => x.id === b.service);
+    const mst = MASTERS.find(x => x.id === b.master);
+    const pay = b.pay || {};
+    const payLabel = pay.method === "prepay" ? `предоплата ${pay.amount} ₽`
+      : pay.method === "full" ? `оплата онлайн ${pay.amount} ₽`
+      : "оплата в салоне";
+    const text = `📋 Заявка №${b.no}\n${whenText(new Date(b.date + "T00:00:00"), b.hour)}\n`
+      + `${svc ? svc.n : b.service} · ${mst ? mst.n : b.master}\n${b.name}, ${b.phone}\n${b.price} ₽ · ${payLabel}`;
+    TG_CHAT_IDS.forEach(chatId => {
+      const url = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage?chat_id=${encodeURIComponent(chatId)}&text=${encodeURIComponent(text)}`;
+      fetch(url).catch(() => {});
+    });
+  }
+
   /* ── Способы оплаты ── */
   const PAY = [
     { id: "salon",   n: "В салоне",        d: "Картой или наличными после услуги",       amt: () => 0 },
@@ -376,6 +397,7 @@ $$(".work").forEach(w => {
       async claim(b) {
         if (this.busy(keyOf(b.date, b.hour, b.master))) return { ok: false };
         save([...load(), b]);
+        notifyTelegram(b);
         if (BOOKING_ENDPOINT) {
           /* text/plain — «простой» запрос без предварительного OPTIONS (preflight):
              Google Apps Script на такие запросы не отвечает и тихо блокирует POST. */
@@ -591,7 +613,7 @@ $$(".work").forEach(w => {
     $("#dPayNow").textContent = rub(amount);
     $("#payNote").hidden = true;
     $("#dLead").textContent = amount ? "Время закреплено за вами. Осталось оплатить, и всё готово." : "Мы перезвоним для подтверждения. Если нужно перенести, позвоните по номеру ниже.";
-    $("#demoNote").hidden = !(store.kind === "local" && !BOOKING_ENDPOINT);
+    $("#demoNote").hidden = !(store.kind === "local" && !BOOKING_ENDPOINT && !(TG_TOKEN && TG_CHAT_IDS.length));
     form.hidden = true; done.hidden = false;
     done.scrollIntoView({ block: "center", behavior: "smooth" });
   });

@@ -78,6 +78,12 @@ window.SITE = {
     /* Куда отправлять заявки (POST, JSON): прокси в Telegram-бота, Google Apps Script, CRM, Formspree.
        Пусто — форма работает в демо-режиме (заявка остаётся только в браузере посетителя). */
     bookingEndpoint: "",
+    /* Самый простой способ получать заявки в Telegram — без сервера, прямо с сайта.
+       telegramBotToken — токен от @BotFather; telegramChatIds — ваши chat_id (напишите
+       боту /start, он подскажет id), можно несколько. Пусто — не отправлять.
+       Ограничение: только уведомление, без кнопок «Подтвердить/Отменить» (для них — bot/). */
+    telegramBotToken: "",
+    telegramChatIds: [],
     /* Ссылка на оплату в вашем платёжном сервисе. Плейсхолдеры: {amount} — сумма, {order} — номер записи, {desc} — описание.
        Пример: "https://pay.example.ru/?sum={amount}&order={order}&comment={desc}". Пусто — демо-режим. */
     paymentUrl: "",
