@@ -385,51 +385,56 @@ $$(".work").forEach(w => {
     };
   }
 
-  function dbStore(db, uid, canEdit) {
+  /* Firestore: коллекция busy/{дата_час_мастер} — только факт занятости (без имени и телефона,
+     читают все); bookings/{uid} — { items: { [no]: заявка } }, читает владелец записи и админ. */
+  function firestoreStore(fs, uid) {
     const taken = new Set(), subs = new Set();
-    db.collection("busy").onSnapshot(snap => {
+    fs.collection("busy").onSnapshot(snap => {
       taken.clear();
-      snap.docs.forEach(d => { if (d.data()?.no) taken.add(d.id); });
+      snap.docs.forEach(d => taken.add(d.id));
       subs.forEach(f => f());
     }, e => console.warn("busy:", e));
-    const patch = async (b, fn) => {
-      const ref = db.doc("bookings/" + b.uid), s = await ref.get(), it = s.exists && s.data().items?.[b.no];
-      if (it) await ref.set({ items: { ...s.data().items, [b.no]: fn(it) } });
-    };
     return {
       kind: "db",
       busy: key => taken.has(key),
       onChange: f => subs.add(f),
       async claim(b) {
-        // «занять слот»: короткая аренда документа, потом проверка и запись — так двое не запишутся на одно время
-        const slot = db.doc("busy/" + keyOf(b.date, b.hour, b.master));
-        const lease = await slot.acquire({ holder: uid, ttlMs: 8000 });
-        if (!lease.acquired) return { ok: false };
-        const cur = await slot.get();
-        if (cur.exists && cur.data()?.no) return { ok: false };
-        await slot.set({ date: b.date, hour: b.hour, master: b.master, no: b.no });
+        const slotRef = fs.collection("busy").doc(keyOf(b.date, b.hour, b.master));
+        const mineRef = fs.collection("bookings").doc(uid);
         try {
-          const mine = db.doc("bookings/" + uid), s = await mine.get();
-          const items = { ...(s.exists ? s.data().items : {}) };
-          items[b.no] = b;
-          await mine.set({ items });
-        } catch (e) { await slot.delete().catch(() => {}); throw e; }
+          await fs.runTransaction(async tx => {
+            const slotSnap = await tx.get(slotRef);
+            if (slotSnap.exists) throw new Error("taken");
+            const mineSnap = await tx.get(mineRef);
+            const items = { ...(mineSnap.exists ? mineSnap.data().items : {}), [b.no]: b };
+            tx.set(slotRef, { date: b.date, hour: b.hour, master: b.master, no: b.no });
+            tx.set(mineRef, { items });
+          });
+        } catch { return { ok: false }; }
         return { ok: true };
       },
-      admin: canEdit ? {
-        watch(fn) {
-          return db.collection("bookings").onSnapshot(snap => {
-            const all = [];
-            snap.docs.forEach(d => Object.values(d.data()?.items || {}).forEach(b => all.push({ ...b, uid: d.id })));
-            fn(all);
-          }, e => console.warn("bookings:", e));
-        },
-        async cancel(b) {
-          await db.doc("busy/" + keyOf(b.date, b.hour, b.master)).delete();
-          await patch(b, it => ({ ...it, status: "canceled" }));
-        },
-        setPaid: b => patch(b, it => ({ ...it, pay: { ...(it.pay || {}), status: "paid" } }))
-      } : null
+      admin: null
+    };
+  }
+
+  function firestoreAdmin(fs) {
+    const patch = async (b, fn) => {
+      const ref = fs.collection("bookings").doc(b.uid), s = await ref.get(), it = s.exists && s.data().items?.[b.no];
+      if (it) await ref.set({ items: { ...s.data().items, [b.no]: fn(it) } });
+    };
+    return {
+      watch(fn) {
+        return fs.collection("bookings").onSnapshot(snap => {
+          const all = [];
+          snap.docs.forEach(d => Object.values(d.data()?.items || {}).forEach(b => all.push({ ...b, uid: d.id })));
+          fn(all);
+        }, e => console.warn("bookings:", e));
+      },
+      async cancel(b) {
+        await fs.collection("busy").doc(keyOf(b.date, b.hour, b.master)).delete();
+        await patch(b, it => ({ ...it, status: "canceled" }));
+      },
+      setPaid: b => patch(b, it => ({ ...it, pay: { ...(it.pay || {}), status: "paid" } }))
     };
   }
 
@@ -657,20 +662,41 @@ $$(".work").forEach(w => {
   renderPays();
   renderSlots();
 
-  /* Подключаем общую базу, если страница запущена там, где она есть.
-     Пока ответа нет, форма уже работает в локальном режиме. */
+  /* Подключаем общую базу (Firebase), если она настроена в config.js.
+     Пока ответа нет или её нет вовсе, форма уже работает в локальном режиме. */
+  const FB = SITE.firebase || {};
   (async () => {
+    if (!FB.apiKey || !window.firebase) return;
     try {
-      if (!window.claude?.use) return;
-      const [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
-      if (!db || !user) return;
-      const uid = await user.id();
+      firebase.initializeApp(FB);
+      const auth = firebase.auth(), fs = firebase.firestore();
+      await auth.signInAnonymously();
+      const uid = auth.currentUser?.uid;
       if (!uid) return;
-      const canEdit = !!(await user.canEdit());
-      store = dbStore(db, uid, canEdit);
+      store = firestoreStore(fs, uid);
       store.onChange(renderSlots);
       renderSlots();
-      if (store.admin) mountAdmin(store.admin);
-    } catch (ex) { console.warn("db недоступна, остаёмся в локальном режиме:", ex); }
+      wireAdminLogin(auth, fs);
+    } catch (ex) { console.warn("firebase недоступна, остаёмся в локальном режиме:", ex); }
   })();
+
+  /* ── Вход администратора: неприметная ссылка в подвале ── */
+  function wireAdminLogin(auth, fs) {
+    const toggleBtn = $("#adminLoginToggle"), form = $("#adminLoginForm"), err = $("#adminLoginErr");
+    toggleBtn.hidden = false;
+    toggleBtn.onclick = () => { form.hidden = !form.hidden; err.hidden = true; };
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      err.hidden = true;
+      const email = $("#adminEmailInput").value.trim(), pass = $("#adminPassInput").value;
+      try {
+        await auth.signInWithEmailAndPassword(email, pass);
+        if (auth.currentUser?.email !== FB.adminEmail) { await auth.signOut(); throw new Error("not admin"); }
+        form.hidden = true;
+        toggleBtn.textContent = "Выйти из админки";
+        toggleBtn.onclick = () => location.reload();
+        mountAdmin(firestoreAdmin(fs));
+      } catch { err.hidden = false; }
+    });
+  }
 })();

@@ -273,10 +273,21 @@
     </div>
     <span class="foot__brand rough" id="footBrand" aria-hidden="true"></span>
     <div class="foot__bottom mono" id="footBottom"></div>
+    <button class="footadmin mono" type="button" id="adminLoginToggle" hidden>Вход для администратора</button>
+    <form class="adminlogin" id="adminLoginForm" hidden>
+      <input type="email" id="adminEmailInput" placeholder="email" autocomplete="username" required>
+      <input type="password" id="adminPassInput" placeholder="пароль" autocomplete="current-password" required>
+      <button class="btn btn--sm" type="submit">Войти</button>
+      <p class="fine fine--err" id="adminLoginErr" hidden>Неверный email или пароль.</p>
+    </form>
   </div>
 </footer>
 
 <noscript><p class="nojs">Для работы сайта нужен включённый JavaScript.</p></noscript>
+<!-- Firebase: общая база записей (занятость видна всем, личные данные — только админу). Подробности: TEMPLATE.md -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script src="config.js"></script>
 <script src="app.js"></script>
 </body>
