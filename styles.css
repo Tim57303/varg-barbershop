@@ -545,6 +545,11 @@ select.ctl{background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%
 .arow.canceled .acts{display:none}
 .adminbtn{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:85}
 .demo-note{margin-top:16px;padding:12px 14px;border:1px dashed var(--red);color:var(--red-deep);font:500 .78rem/1.5 var(--f-mono);letter-spacing:.04em}
+.footadmin{width:100%;text-align:left;margin-top:14px;background:none;border:0;color:inherit;opacity:.3;font-size:.68rem;letter-spacing:.1em;cursor:pointer;padding:0}
+.footadmin:hover{opacity:.7}
+.adminlogin{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.adminlogin input{background:var(--ink-2);border:1px solid var(--line-inv);color:inherit;padding:9px 10px;font:500 .82rem var(--f-mono);min-width:0;flex:1 1 150px}
+.adminlogin .fine--err{margin:0;width:100%;color:#ff7a70}
 
 /* ───────── Форма записи: шаги, чипы, оплата ───────── */
 .step{padding-bottom:22px;margin-bottom:22px;border-bottom:2px dashed var(--line)}
