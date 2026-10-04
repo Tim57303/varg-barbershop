@@ -1,0 +1,30 @@
+rules_version = '2';
+
+/* Правила безопасности для общей базы записей.
+   Вставить целиком в Firebase Console → Firestore Database → Rules → Publish.
+   Замените ADMIN_EMAIL на почту администратора (та же, что в config.js → firebase.adminEmail). */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == "ADMIN_EMAIL";
+    }
+
+    /* Только факт занятости слота (дата, час, мастер) — без имени и телефона.
+       Читают все посетители сайта, чтобы видеть занятые часы сразу; создать
+       новую запись может любой авторизованный (в том числе анонимно) клиент,
+       но только если слот ещё свободен — переписать существующую запись нельзя. */
+    match /busy/{slotId} {
+      allow read: if true;
+      allow create: if request.auth != null && !exists(/databases/$(database)/documents/busy/$(slotId));
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    /* Заявки конкретного посетителя (имя, телефон, услуга…), сгруппированные по его uid.
+       Читает и пишет только сам посетитель (свой uid) или администратор. */
+    match /bookings/{uid} {
+      allow read, write: if request.auth != null && (request.auth.uid == uid || isAdmin());
+    }
+  }
+}
