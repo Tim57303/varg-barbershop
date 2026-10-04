@@ -352,6 +352,15 @@ $$(".work").forEach(w => {
   const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   const keyOf = (date, hour, master) => `${date}_${hour}_${master}`;
   const whenText = (d, h) => `${WD[d.getDay()]}, ${d.getDate()} ${MON[d.getMonth()]}, ${pad(h)}:00`;
+  /* Салон работает по московскому времени — какой бы часовой пояс ни стоял у
+     посетителя (другой город, другая страна), «сейчас» и «сегодня» должны
+     считаться по Москве, иначе список свободных окон будет неверным. */
+  const nowMsk = () => {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Moscow", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false
+    }).formatToParts(new Date()).map(x => [x.type, x.value]));
+    return { date: `${p.year}-${p.month}-${p.day}`, hour: +p.hour, minute: +p.minute };
+  };
 
   /* ── Способы оплаты ── */
   const PAY = [
@@ -485,7 +494,7 @@ $$(".work").forEach(w => {
   makeDeselectable(svcBox);
   makeDeselectable(masterBox);
 
-  const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; });
+  const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(nowMsk().date + "T00:00:00"); d.setDate(d.getDate() + i); return d; });
   daysEl.innerHTML = days.map((d, i) => `
     <label class="day"><input type="radio" name="day" value="${i}" ${i === 0 ? "checked" : ""}>
       <span><b>${WD[d.getDay()]}</b><em>${d.getDate()}</em><small>${MON[d.getMonth()]}</small></span></label>`).join("");
@@ -498,9 +507,9 @@ $$(".work").forEach(w => {
       <span class="pay__c"><b>${p.n}</b><small>${p.d}</small><em>${p.amt(s) ? rub(p.amt(s)) : "0 ₽ сейчас"}</em></span></label>`).join("");
   }
   function renderSlots() {
-    const date = iso(days[dayIdx()]), now = new Date(), master = getMaster(), html = [];
+    const date = iso(days[dayIdx()]), now = nowMsk(), master = getMaster(), html = [];
     for (let h = HOURS.from; h <= HOURS.to; h++) {
-      const past = date === iso(now) && h * 60 <= now.getHours() * 60 + now.getMinutes() + 30;
+      const past = date === now.date && h * 60 <= now.hour * 60 + now.minute + 30;
       const off = past || isBusy(date, h, master);
       if (off && state.time === h) state.time = null;
       html.push(`<label class="slot"><input type="radio" name="time" value="${h}" ${off ? "disabled" : ""} ${state.time === h ? "checked" : ""}><span>${pad(h)}:00</span></label>`);
@@ -625,7 +634,7 @@ $$(".work").forEach(w => {
 
     let armed = null, rows = [];
     admin.watch(all => {
-      const today = iso(new Date());
+      const today = nowMsk().date;
       rows = all.filter(b => b.date >= today).sort((a, b) => (a.date + pad(a.hour)).localeCompare(b.date + pad(b.hour)));
       $("#adminN").textContent = rows.filter(b => b.status !== "canceled").length;
       $("#adminEmpty").hidden = rows.length > 0;
