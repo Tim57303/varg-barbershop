@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>iPhone 18 Pro Max — презентация</title>
+<meta name="description" content="Концепт-презентация iPhone 18 Pro Max: 3D-модель, цвета, камера, дисплей и чип.">
+<style>
+@property --c1{syntax:'<color>';inherits:true;initial-value:#d4162f}
+@property --c2{syntax:'<color>';inherits:true;initial-value:#8d0a1c}
+@property --b1{syntax:'<color>';inherits:true;initial-value:#b3153f}
+@property --b2{syntax:'<color>';inherits:true;initial-value:#3a0614}
+@property --b3{syntax:'<color>';inherits:true;initial-value:#0b0306}
+
+:root{
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --fg:#fff;--muted:rgba(255,255,255,.62);--line:rgba(255,255,255,.16);--card:rgba(255,255,255,.07);
+  transition:--c1 .9s,--c2 .9s,--b1 .9s,--b2 .9s,--b3 .9s;
+}
+/* ---------- цвета корпуса ---------- */
+body[data-color=red]{--c1:#e0132f;--c2:#8d0a1c}
+body[data-color=blue]{--c1:#2f62e0;--c2:#16307a}
+body[data-color=silver]{--c1:#dcdce2;--c2:#9b9ba5}
+body[data-color=graphite]{--c1:#3a3a40;--c2:#18181b}
+/* тёмная тема (как на видео) */
+body[data-theme=dark][data-color=red]{--b1:#b3153f;--b2:#3a0614;--b3:#0b0306}
+body[data-theme=dark][data-color=blue]{--b1:#1f4fb8;--b2:#0b1a45;--b3:#04070f}
+body[data-theme=dark][data-color=silver]{--b1:#6f7280;--b2:#23252d;--b3:#08090b}
+body[data-theme=dark][data-color=graphite]{--b1:#4a4a55;--b2:#17171c;--b3:#050506}
+/* «Евро» — светлая штукатурка, мягкие тона */
+body[data-theme=euro]{--fg:#2b2622;--muted:rgba(43,38,34,.62);--line:rgba(43,38,34,.16);--card:rgba(255,255,255,.55)}
+body[data-theme=euro][data-color=red]{--b1:#f2d5d0;--b2:#f1e8e1;--b3:#e8e1d8}
+body[data-theme=euro][data-color=blue]{--b1:#cfdaee;--b2:#ebe9e5;--b3:#e6e2da}
+body[data-theme=euro][data-color=silver]{--b1:#e4e3e1;--b2:#efede8;--b3:#e7e3db}
+body[data-theme=euro][data-color=graphite]{--b1:#d6d2cc;--b2:#ebe8e2;--b3:#ded9d1}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--fg);background:var(--b3);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:color .6s}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+.bg{position:fixed;inset:0;z-index:-3;
+  background:
+   radial-gradient(70% 60% at 62% 42%,var(--b1) 0%,transparent 70%),
+   radial-gradient(90% 80% at 10% 100%,var(--b2) 0%,transparent 70%),
+   var(--b3)}
+.grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+body[data-theme=euro] .grain{opacity:.16;mix-blend-mode:multiply}
+/* молдинг/багет по периметру — только в «Евро» */
+.molding{position:fixed;inset:14px;z-index:-1;pointer-events:none;border:1px solid transparent;border-radius:6px;transition:border-color .6s}
+.molding::after{content:"";position:absolute;inset:8px;border:1px solid transparent;border-radius:3px;transition:border-color .6s}
+body[data-theme=euro] .molding,body[data-theme=euro] .molding::after{border-color:rgba(43,38,34,.14)}
+
+/* ---------- шапка ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:26px clamp(20px,4vw,56px)}
+.logo{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+.toggle{display:flex;gap:4px;padding:4px;border-radius:99px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.toggle button{padding:8px 16px;border-radius:99px;font-size:12px;letter-spacing:.04em;opacity:.65;transition:.4s var(--ease)}
+.toggle button.on{opacity:1;background:var(--fg);color:var(--b3)}
+body[data-theme=dark] .toggle button.on{color:#120408}
+body[data-theme=euro] .toggle button.on{color:#f1ece4}
+
+/* ---------- сцена с телефоном ---------- */
+.stage{position:fixed;inset:0;z-index:1;perspective:1800px;pointer-events:none;display:grid;place-items:center}
+.rig{position:relative;width:280px;height:580px;transform-style:preserve-3d;will-change:transform}
+.phone{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:auto;cursor:grab;touch-action:pan-y}
+.phone:active{cursor:grabbing}
+.layer,.face{position:absolute;inset:0;border-radius:46px}
+.layer{background:linear-gradient(90deg,color-mix(in srgb,var(--c1) 70%,#000),var(--c1) 30%,color-mix(in srgb,var(--c1) 80%,#fff) 50%,var(--c1) 70%,color-mix(in srgb,var(--c1) 70%,#000));backface-visibility:hidden}
+.layer.rim{background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 60%,#fff),var(--c2))}
+.face{backface-visibility:hidden}
+.back{transform:rotateY(180deg) translateZ(17px);overflow:visible;
+  background:
+   linear-gradient(160deg,rgba(255,255,255,.22),transparent 34%,rgba(0,0,0,.18) 100%),
+   linear-gradient(180deg,var(--c1),color-mix(in srgb,var(--c1) 82%,#000))}
+.back .glass{position:absolute;left:0;right:0;bottom:0;top:34%;border-radius:0 0 46px 46px;
+  background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,0) 40%,rgba(0,0,0,.2)),color-mix(in srgb,var(--c1) 70%,#000);opacity:.55}
+.back .sheen{position:absolute;inset:0;border-radius:46px;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.18) 45%,transparent 60%);mix-blend-mode:screen}
+.plate{position:absolute;left:14px;top:14px;width:150px;height:150px;border-radius:38px;transform-style:preserve-3d}
+.plate i{position:absolute;inset:0;border-radius:38px;background:color-mix(in srgb,var(--c1) 90%,#000);border:1px solid rgba(255,255,255,.18)}
+.plate i:nth-child(1){transform:translateZ(1px)}.plate i:nth-child(2){transform:translateZ(2.5px)}
+.plate i:nth-child(3){transform:translateZ(4px)}.plate i:nth-child(4){transform:translateZ(5.5px);background:linear-gradient(150deg,color-mix(in srgb,var(--c1) 80%,#fff),var(--c1) 45%,color-mix(in srgb,var(--c1) 80%,#000))}
+.lens{position:absolute;width:62px;height:62px;border-radius:50%;transform:translateZ(7px);
+  background:radial-gradient(circle at 50% 50%,#05070f 0 22%,#1a2a66 34%,#0a0f26 48%,#161a2a 55%,#c9ccd6 57%,#6b6f7c 62%,#20222b 66%);
+  box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.12)}
+.lens::after{content:"";position:absolute;left:30%;top:24%;width:20%;height:14%;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(1.5px);transform:rotate(-30deg)}
+.l1{left:14px;top:14px}.l2{left:76px;top:46px}.l3{left:14px;top:80px}
+.dot{position:absolute;width:15px;height:15px;border-radius:50%;background:#0a0a0d;transform:translateZ(7px);box-shadow:inset 0 0 0 2px rgba(255,255,255,.14)}
+.d1{left:108px;top:16px}.d2{left:116px;top:100px;width:20px;height:20px;background:#f4f1e6}
+.logoA{position:absolute;left:50%;top:60%;width:34px;height:34px;margin:-17px 0 0 -17px;opacity:.5;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.65) 0 55%,transparent 58%)}
+
+.front{transform:translateZ(17px);background:#050506;padding:9px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--c1) 60%,#444)}
+.screen{position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;
+  background:
+   radial-gradient(80% 50% at 30% 20%,color-mix(in srgb,var(--c1) 80%,#fff) 0%,transparent 70%),
+   radial-gradient(90% 60% at 80% 90%,var(--c2) 0%,transparent 70%),#0a0a0e}
+.island{position:absolute;top:12px;left:50%;width:84px;height:24px;margin-left:-42px;background:#000;border-radius:20px;z-index:2}
+.clock{position:absolute;top:62px;width:100%;text-align:center;color:#fff}
+.clock small{display:block;font-size:13px;opacity:.8;margin-bottom:2px}
+.clock b{font-size:78px;font-weight:600;letter-spacing:-.03em;line-height:1}
+.widgets{position:absolute;left:14px;right:14px;bottom:70px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.widgets span{height:84px;border-radius:22px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2)}
+.dock{position:absolute;left:14px;right:14px;bottom:14px;height:46px;border-radius:20px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.2)}
+.glare{position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.16),transparent 40%);pointer-events:none}
+.btn{position:absolute;width:4px;border-radius:2px;background:color-mix(in srgb,var(--c1) 55%,#fff)}
+.shadow{position:absolute;left:50%;bottom:-70px;width:300px;height:60px;margin-left:-150px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(10px);transform:rotateX(90deg) translateZ(-300px);opacity:.8}
+body[data-theme=euro] .shadow{background:radial-gradient(closest-side,rgba(60,40,30,.35),transparent)}
+
+/* ---------- контент ---------- */
+main{position:relative;z-index:5}
+section{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:110px clamp(20px,6vw,96px)}
+.copy{max-width:380px;opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+section.in .copy{opacity:1;transform:none}
+section.right{justify-content:flex-end}
+section.center{justify-content:center;text-align:center}
+section.center .copy{max-width:560px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;display:flex;gap:10px;align-items:center}
+.eyebrow::before{content:"";width:22px;height:1px;background:currentColor}
+section.center .eyebrow{justify-content:center}
+h1,h2{font-weight:600;letter-spacing:-.035em;line-height:.98}
+h1{font-size:clamp(44px,6vw,84px)}
+h1 em{display:block;font-style:normal;font-weight:300;color:var(--muted)}
+h2{font-size:clamp(34px,4.4vw,60px)}
+h2 em{font-style:normal;font-weight:300;color:var(--muted)}
+.copy p{margin-top:22px;font-size:15.5px;line-height:1.55;color:var(--muted)}
+.hint{font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.7;margin-top:22px;color:var(--muted);opacity:.8}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:30px}
+.stat{padding:16px 18px;border-radius:20px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.stat b{display:block;font-size:28px;font-weight:600;letter-spacing:-.03em}
+.stat span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+body[data-theme=euro] .stat{box-shadow:0 18px 40px -22px rgba(60,40,30,.35)}
+.cta{display:inline-flex;margin-top:30px;padding:15px 30px;border-radius:99px;background:var(--fg);color:var(--b3);font-size:14px;font-weight:600;transition:transform .5s var(--ease)}
+body[data-theme=dark] .cta{color:#120408}
+body[data-theme=euro] .cta{color:#f1ece4}
+.cta:hover{transform:scale(1.05)}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:34px;text-align:left}
+.specs div{padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.specs dd{font-size:15px;margin-top:4px}
+.disc{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:26px;opacity:.7}
+
+/* выбор цвета */
+.swatches{position:fixed;z-index:20;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:6px;padding:8px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);align-items:center}
+.sw{width:22px;height:22px;border-radius:50%;border:2px solid transparent;outline:1px solid var(--line);transition:transform .4s var(--ease),border-color .3s;position:relative}
+.sw:hover{transform:scale(1.15)}
+.sw.on{border-color:var(--fg);transform:scale(1.18)}
+.sw[data-c=red]{background:#e0132f}.sw[data-c=blue]{background:#2f62e0}.sw[data-c=silver]{background:#dcdce2}.sw[data-c=graphite]{background:#2c2c31}
+.flip{margin-left:6px;padding:6px 12px;border-radius:99px;font-family:var(--mono);font-size:11px;border-left:1px solid var(--line);border-radius:0 99px 99px 0;opacity:.8}
+.flip:hover{opacity:1}
+.scroll{position:fixed;right:clamp(16px,3vw,40px);top:50%;z-index:20;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px}
+.scroll a{width:6px;height:6px;border-radius:50%;background:var(--fg);opacity:.25;transition:.4s var(--ease)}
+.scroll a.on{opacity:1;height:22px;border-radius:4px}
+
+@media (max-width:820px){
+  .rig{width:230px;height:476px;margin-top:-170px}
+  section{align-items:flex-end;padding:100px 22px 110px}
+  section,section.right,section.center{justify-content:flex-start;text-align:left}
+  section.center .eyebrow{justify-content:flex-start}
+  .copy,section.center .copy{max-width:none;padding:18px 18px 20px;border-radius:26px;background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line)}
+  h1{font-size:40px}h2{font-size:32px}
+  .copy p{font-size:14px;margin-top:12px}
+  .hint{display:none}
+  .stats{margin-top:16px}.stat{padding:12px 14px}.stat b{font-size:22px}
+  .scroll{display:none}
+  #s-end{align-items:center}
+  .specs{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body data-theme="dark" data-color="red">
+<div class="bg"></div><div class="grain"></div><div class="molding"></div>
+
+<header>
+  <div class="logo">iPhone 18 Pro Max · концепт</div>
+  <div class="toggle" role="group" aria-label="Тема">
+    <button data-theme="dark" class="on">Тёмная</button>
+    <button data-theme="euro">Евро</button>
+  </div>
+</header>
+
+<div class="stage" aria-hidden="true">
+  <div class="rig" id="rig">
+    <div class="shadow"></div>
+    <div class="phone" id="phone">
+      <div class="face front">
+        <div class="screen">
+          <div class="island"></div>
+          <div class="clock"><small>Воскресенье, 18 октября</small><b>9:41</b></div>
+          <div class="widgets"><span></span><span></span></div>
+          <div class="dock"></div>
+          <div class="glare"></div>
+        </div>
+      </div>
+      <div class="face back">
+        <div class="glass"></div><div class="sheen"></div>
+        <div class="plate"><i></i><i></i><i></i><i></i>
+          <div class="lens l1"></div><div class="lens l2"></div><div class="lens l3"></div>
+          <div class="dot d1"></div><div class="dot d2"></div>
+        </div>
+        <div class="logoA"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="scroll" id="dots"></nav>
+
+<main>
+  <section id="s-hero" data-ry="152" data-rx="-5" data-x=".26" data-s="1" data-c="">
+    <div class="copy">
+      <div class="eyebrow">Новое поколение</div>
+      <h1>iPhone 18<em>Pro Max</em></h1>
+      <p>Главный цвет поколения. Глубокий красный на задней панели и боковых гранях — насыщенный, но не кричащий.</p>
+      <div class="hint">Тяните телефон мышью или пальцем, чтобы вращать.<br>Ниже — выберите цвет.</div>
+    </div>
+  </section>
+
+  <section id="s-cam" class="right" data-ry="196" data-rx="-4" data-x="-.22" data-s="1.08">
+    <div class="copy">
+      <div class="eyebrow">Камера</div>
+      <h2>Три глаза.<br><em>Один взгляд.</em></h2>
+      <p>Единая стеклянная площадка, цельная с корпусом. Основная, сверхширокая и 8× телеобъектив — без переключений и без компромиссов в свете.</p>
+      <div class="stats"><div class="stat"><b>48 Мп</b><span>Основная</span></div><div class="stat"><b>8×</b><span>Оптический зум</span></div></div>
+    </div>
+  </section>
+
+  <section id="s-disp" data-ry="8" data-rx="0" data-x="0.27" data-s="1.05">
+    <div class="copy">
+      <div class="eyebrow">Дисплей</div>
+      <h2>Экран,<br><em>которого не видно.</em></h2>
+      <p>6,9″ ProMotion с тончайшими рамками. Яркость до 3000 нит, адаптивная частота 1–120 Гц и плавность, которую чувствуешь пальцем.</p>
+      <div class="stats"><div class="stat"><b>3000</b><span>нит пик</span></div><div class="stat"><b>120 Гц</b><span>ProMotion</span></div></div>
+    </div>
+  </section>
+
+  <section id="s-chip" class="right" data-ry="-62" data-rx="8" data-x="-.24" data-s="1.05">
+    <div class="copy">
+      <div class="eyebrow">Чип</div>
+      <h2>A20 Pro.<br><em>Тихая мощность.</em></h2>
+      <p>Первый 2‑нм чип в iPhone. Быстрее на 20%, холоднее на 30%, и нейроядра, которые понимают контекст прямо на устройстве.</p>
+      <div class="stats"><div class="stat"><b>2 нм</b><span>Техпроцесс</span></div><div class="stat"><b>+20%</b><span>Скорость CPU</span></div></div>
+    </div>
+  </section>
+
+  <section id="s-bat" data-ry="-148" data-rx="-6" data-x=".25" data-s="1">
+    <div class="copy">
+      <div class="eyebrow">Автономность</div>
+      <h2>Два дня<br><em>без розетки.</em></h2>
+      <p>Новая кремний-углеродная батарея и энергоэффективный модем. Зарядка 50% за 20 минут, MagSafe 40 Вт.</p>
+      <div class="stats"><div class="stat"><b>до 48 ч</b><span>Работа</span></div><div class="stat"><b>40 Вт</b><span>MagSafe</span></div></div>
+    </div>
+  </section>
+
+  <section id="s-end" class="center" data-ry="168" data-rx="-3" data-x="0" data-s=".78">
+    <div class="copy">
+      <div class="eyebrow">Предзаказ</div>
+      <h2>iPhone 18 Pro Max<br><em>от 139 990 ₽</em></h2>
+      <dl class="specs">
+        <div><dt>Память</dt><dd>256 ГБ — 2 ТБ</dd></div>
+        <div><dt>Корпус</dt><dd>Титан, 6,9″</dd></div>
+        <div><dt>Связь</dt><dd>5G, Wi‑Fi 8, eSIM</dd></div>
+        <div><dt>Цвета</dt><dd>4 оттенка</dd></div>
+      </dl>
+      <button class="cta" onclick="alert('Это учебный концепт — предзаказа нет 🙂')">Оформить предзаказ</button>
+      <div class="disc">Концепт-страница. Продукт и характеристики вымышлены.</div>
+    </div>
+  </section>
+</main>
+
+<div class="swatches" role="group" aria-label="Цвет корпуса">
+  <button class="sw on" data-c="red" aria-label="Красный"></button>
+  <button class="sw" data-c="blue" aria-label="Синий"></button>
+  <button class="sw" data-c="silver" aria-label="Серебристый"></button>
+  <button class="sw" data-c="graphite" aria-label="Графит"></button>
+  <button class="flip" id="flip">↻ сторона</button>
+</div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const body = document.body, phone = $('#phone'), rig = $('#rig');
+  const D = 34, N = 18, half = D / 2;
+
+  /* скруглённый торец корпуса — набор слоёв между передней и задней гранью */
+  for (let i = 0; i < N; i++) {
+    const l = document.createElement('div');
+    const t = i / (N - 1);
+    l.className = 'layer' + (i % 6 === 3 ? ' rim' : '');
+    const inset = Math.pow(Math.abs(t - .5) * 2, 6) * 2.2;       /* лёгкая фаска по краям */
+    l.style.inset = inset + 'px';
+    l.style.transform = `translateZ(${-half + 1 + t * (D - 2)}px)`;
+    l.style.backfaceVisibility = 'visible';
+    phone.insertBefore(l, phone.firstChild);
+  }
+  /* кнопки на боковых гранях */
+  [[120, 64, 'left'], [196, 64, 'left'], [150, 94, 'right']].forEach(([top, h, side]) => {
+    const b = document.createElement('div');
+    b.className = 'btn';
+    b.style.cssText = `top:${top}px;height:${h}px;${side}:-3px;transform:translateZ(0)`;
+    phone.appendChild(b);
+  });
+
+  /* ---------- сцены ---------- */
+  const secs = $$('main section');
+  const dots = $('#dots');
+  secs.forEach((s, i) => {
+    const a = document.createElement('a'); a.href = '#' + s.id; a.setAttribute('aria-label', 'Раздел ' + (i + 1)); dots.appendChild(a);
+  });
+  const dotEls = $$('a', dots);
+
+  let cur = { ry: 152, rx: -5, x: .26, s: 1 };
+  let tgt = { ...cur };
+  let drag = { ry: 0, rx: 0 }, dragging = false, last = null, flipOff = 0, mouse = { x: 0, y: 0 };
+  let active = 0;
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      active = secs.indexOf(e.target);
+      const d = e.target.dataset;
+      tgt = { ry: +d.ry, rx: +d.rx, x: +d.x, s: +d.s };
+      drag.ry *= .0; drag.rx = 0;            /* при смене раздела возвращаем модель в позу */
+      dotEls.forEach((a, i) => a.classList.toggle('on', i === active));
+    }
+  }), { threshold: .55 });
+  secs.forEach(s => io.observe(s));
+
+  /* вращение мышью / пальцем */
+  phone.addEventListener('pointerdown', e => { dragging = true; last = e; phone.setPointerCapture(e.pointerId); });
+  phone.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    drag.ry += (e.clientX - last.clientX) * .55;
+    drag.rx = Math.max(-35, Math.min(35, drag.rx - (e.clientY - last.clientY) * .35));
+    last = e;
+  });
+  const end = () => { dragging = false; };
+  phone.addEventListener('pointerup', end); phone.addEventListener('pointercancel', end);
+  addEventListener('pointermove', e => { mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5; });
+
+  $('#flip').addEventListener('click', () => { flipOff += 180; });
+
+  /* цвет */
+  $$('.sw').forEach(b => b.addEventListener('click', () => {
+    $$('.sw').forEach(x => x.classList.toggle('on', x === b));
+    body.dataset.color = b.dataset.c;
+    flipOff += 360;                                    /* красивый оборот при смене цвета */
+  }));
+  /* тема */
+  $$('.toggle button').forEach(b => b.addEventListener('click', () => {
+    $$('.toggle button').forEach(x => x.classList.toggle('on', x === b));
+    body.dataset.theme = b.dataset.theme;
+  }));
+
+  /* ---------- цикл анимации ---------- */
+  const lerp = (a, b, k) => a + (b - a) * k;
+  let flipCur = 0, t0 = performance.now();
+  function frame(now) {
+    const t = (now - t0) / 1000;
+    const k = .075;
+    cur.ry = lerp(cur.ry, tgt.ry, k); cur.rx = lerp(cur.rx, tgt.rx, k);
+    cur.x = lerp(cur.x, tgt.x, k);     cur.s = lerp(cur.s, tgt.s, k);
+    flipCur = lerp(flipCur, flipOff, .06);
+    if (!dragging) { drag.ry = lerp(drag.ry, 0, .02); drag.rx = lerp(drag.rx, 0, .03); }
+    const narrow = innerWidth <= 820;
+    const px = narrow ? 0 : cur.x * innerWidth;
+    const py = Math.sin(t * .9) * 6 - (narrow ? 0 : 0);
+    const ry = cur.ry + drag.ry + flipCur + mouse.x * 10 + Math.sin(t * .5) * 2;
+    const rx = cur.rx + drag.rx - mouse.y * 8;
+    const s = cur.s * (narrow ? 1 : Math.min(1, innerHeight / 760));
+    rig.style.transform = `translate3d(${px}px,${py}px,0) scale(${s})`;
+    phone.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
