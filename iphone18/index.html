@@ -63,53 +63,11 @@ header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:c
 body[data-theme=dark] .toggle button.on{color:#120408}
 body[data-theme=euro] .toggle button.on{color:#f1ece4}
 
-/* ---------- сцена с телефоном ---------- */
-.stage{position:fixed;inset:0;z-index:1;perspective:1800px;pointer-events:none;display:grid;place-items:center}
-.rig{position:relative;width:280px;height:580px;transform-style:preserve-3d;will-change:transform}
-.phone{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:auto;cursor:grab;touch-action:pan-y}
-.phone:active{cursor:grabbing}
-.layer,.face{position:absolute;inset:0;border-radius:46px}
-.layer{background:linear-gradient(90deg,color-mix(in srgb,var(--c1) 70%,#000),var(--c1) 30%,color-mix(in srgb,var(--c1) 80%,#fff) 50%,var(--c1) 70%,color-mix(in srgb,var(--c1) 70%,#000));backface-visibility:hidden}
-.layer.rim{background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 60%,#fff),var(--c2))}
-.face{backface-visibility:hidden}
-.back{transform:rotateY(180deg) translateZ(17px);overflow:visible;
-  background:
-   linear-gradient(160deg,rgba(255,255,255,.22),transparent 34%,rgba(0,0,0,.18) 100%),
-   linear-gradient(180deg,var(--c1),color-mix(in srgb,var(--c1) 82%,#000))}
-.back .glass{position:absolute;left:0;right:0;bottom:0;top:34%;border-radius:0 0 46px 46px;
-  background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,0) 40%,rgba(0,0,0,.2)),color-mix(in srgb,var(--c1) 70%,#000);opacity:.55}
-.back .sheen{position:absolute;inset:0;border-radius:46px;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.18) 45%,transparent 60%);mix-blend-mode:screen}
-.plate{position:absolute;left:14px;top:14px;width:150px;height:150px;border-radius:38px;transform-style:preserve-3d}
-.plate i{position:absolute;inset:0;border-radius:38px;background:color-mix(in srgb,var(--c1) 90%,#000);border:1px solid rgba(255,255,255,.18)}
-.plate i:nth-child(1){transform:translateZ(1px)}.plate i:nth-child(2){transform:translateZ(2.5px)}
-.plate i:nth-child(3){transform:translateZ(4px)}.plate i:nth-child(4){transform:translateZ(5.5px);background:linear-gradient(150deg,color-mix(in srgb,var(--c1) 80%,#fff),var(--c1) 45%,color-mix(in srgb,var(--c1) 80%,#000))}
-.lens{position:absolute;width:62px;height:62px;border-radius:50%;transform:translateZ(7px);
-  background:radial-gradient(circle at 50% 50%,#05070f 0 22%,#1a2a66 34%,#0a0f26 48%,#161a2a 55%,#c9ccd6 57%,#6b6f7c 62%,#20222b 66%);
-  box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.12)}
-.lens::after{content:"";position:absolute;left:30%;top:24%;width:20%;height:14%;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(1.5px);transform:rotate(-30deg)}
-.l1{left:14px;top:14px}.l2{left:76px;top:46px}.l3{left:14px;top:80px}
-.dot{position:absolute;width:15px;height:15px;border-radius:50%;background:#0a0a0d;transform:translateZ(7px);box-shadow:inset 0 0 0 2px rgba(255,255,255,.14)}
-.d1{left:108px;top:16px}.d2{left:116px;top:100px;width:20px;height:20px;background:#f4f1e6}
-.logoA{position:absolute;left:50%;top:60%;width:34px;height:34px;margin:-17px 0 0 -17px;opacity:.5;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.65) 0 55%,transparent 58%)}
-
-.front{transform:translateZ(17px);background:#050506;padding:9px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--c1) 60%,#444)}
-.screen{position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;
-  background:
-   radial-gradient(80% 50% at 30% 20%,color-mix(in srgb,var(--c1) 80%,#fff) 0%,transparent 70%),
-   radial-gradient(90% 60% at 80% 90%,var(--c2) 0%,transparent 70%),#0a0a0e}
-.island{position:absolute;top:12px;left:50%;width:84px;height:24px;margin-left:-42px;background:#000;border-radius:20px;z-index:2}
-.clock{position:absolute;top:62px;width:100%;text-align:center;color:#fff}
-.clock small{display:block;font-size:13px;opacity:.8;margin-bottom:2px}
-.clock b{font-size:78px;font-weight:600;letter-spacing:-.03em;line-height:1}
-.widgets{position:absolute;left:14px;right:14px;bottom:70px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.widgets span{height:84px;border-radius:22px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2)}
-.dock{position:absolute;left:14px;right:14px;bottom:14px;height:46px;border-radius:20px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.2)}
-.glare{position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.16),transparent 40%);pointer-events:none}
-.btn{position:absolute;width:4px;border-radius:2px;background:color-mix(in srgb,var(--c1) 55%,#fff)}
-.shadow{position:absolute;left:50%;bottom:-70px;width:300px;height:60px;margin-left:-150px;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(10px);transform:rotateX(90deg) translateZ(-300px);opacity:.8}
-body[data-theme=euro] .shadow{background:radial-gradient(closest-side,rgba(60,40,30,.35),transparent)}
+/* ---------- сцена Three.js ---------- */
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;display:block}
+body.over{cursor:grab}body.grabbing,body.grabbing *{cursor:grabbing!important;user-select:none}
+main{touch-action:pan-y}
+.no-gl::after{content:"Для 3D нужен WebGL — включите аппаратное ускорение в браузере.";position:fixed;left:0;right:0;top:50%;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
 
 /* ---------- контент ---------- */
 main{position:relative;z-index:5}
@@ -157,8 +115,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
 .scroll a.on{opacity:1;height:22px;border-radius:4px}
 
 @media (max-width:820px){
-  .rig{width:230px;height:476px;margin-top:-170px}
-  section{align-items:flex-end;padding:100px 22px 110px}
+    section{align-items:flex-end;padding:100px 22px 110px}
   section,section.right,section.center{justify-content:flex-start;text-align:left}
   section.center .eyebrow{justify-content:flex-start}
   .copy,section.center .copy{max-width:none;padding:18px 18px 20px;border-radius:26px;background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line)}
@@ -184,30 +141,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
   </div>
 </header>
 
-<div class="stage" aria-hidden="true">
-  <div class="rig" id="rig">
-    <div class="shadow"></div>
-    <div class="phone" id="phone">
-      <div class="face front">
-        <div class="screen">
-          <div class="island"></div>
-          <div class="clock"><small>Воскресенье, 18 октября</small><b>9:41</b></div>
-          <div class="widgets"><span></span><span></span></div>
-          <div class="dock"></div>
-          <div class="glare"></div>
-        </div>
-      </div>
-      <div class="face back">
-        <div class="glass"></div><div class="sheen"></div>
-        <div class="plate"><i></i><i></i><i></i><i></i>
-          <div class="lens l1"></div><div class="lens l2"></div><div class="lens l3"></div>
-          <div class="dot d1"></div><div class="dot d2"></div>
-        </div>
-        <div class="logoA"></div>
-      </div>
-    </div>
-  </div>
-</div>
+<canvas id="gl" aria-hidden="true"></canvas>
 
 <nav class="scroll" id="dots"></nav>
 
@@ -221,7 +155,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
     </div>
   </section>
 
-  <section id="s-cam" class="right" data-ry="196" data-rx="-4" data-x="-.22" data-s="1.08">
+  <section id="s-cam" class="right" data-ry="196" data-rx="-4" data-x="-.23" data-y="-.1" data-s="1.45">
     <div class="copy">
       <div class="eyebrow">Камера</div>
       <h2>Три глаза.<br><em>Один взгляд.</em></h2>
@@ -281,100 +215,266 @@ body[data-theme=euro] .cta{color:#f1ece4}
   <button class="flip" id="flip">↻ сторона</button>
 </div>
 
+<script src="vendor/three.min.js"></script>
 <script>
 (() => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const body = document.body, phone = $('#phone'), rig = $('#rig');
-  const D = 34, N = 18, half = D / 2;
+  const body = document.body;
+  const T = THREE;
 
-  /* скруглённый торец корпуса — набор слоёв между передней и задней гранью */
-  for (let i = 0; i < N; i++) {
-    const l = document.createElement('div');
-    const t = i / (N - 1);
-    l.className = 'layer' + (i % 6 === 3 ? ' rim' : '');
-    const inset = Math.pow(Math.abs(t - .5) * 2, 6) * 2.2;       /* лёгкая фаска по краям */
-    l.style.inset = inset + 'px';
-    l.style.transform = `translateZ(${-half + 1 + t * (D - 2)}px)`;
-    l.style.backfaceVisibility = 'visible';
-    phone.insertBefore(l, phone.firstChild);
-  }
+  /* ---------- размеры модели (1 ед. = 10 мм) ---------- */
+  const W = 7.76, H = 16.34, DEP = .88, R = 1.2;
+  const PAL = {
+    red:      { base: 0xc8102a, frame: 0xe23a55, lower: 0xb00e26 },
+    blue:     { base: 0x1a72e0, frame: 0x4aa0f5, lower: 0x145cb8 },
+    silver:   { base: 0xcfcfd6, frame: 0xf0f0f4, lower: 0xbdbdc6 },
+    graphite: { base: 0x2b2b31, frame: 0x585861, lower: 0x222227 }
+  };
+
+  /* ---------- рендер ---------- */
+  const canvas = $('#gl');
+  let renderer;
+  try { renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+  catch (e) { document.body.classList.add('no-gl'); return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = T.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+
+  const scene = new T.Scene();
+  const camera = new T.PerspectiveCamera(30, 1, .1, 200);
+  const DIST = 40;
+  camera.position.set(0, 0, DIST);
+
+  /* студийное окружение для отражений: софтбоксы вокруг модели */
+  (function env() {
+    const e = new T.Scene();
+    e.add(new T.Mesh(new T.BoxGeometry(80, 80, 80), new T.MeshBasicMaterial({ color: 0x15151a, side: T.BackSide })));
+    const panel = (w, h, x, y, z, c, ry = 0, rx = 0) => {
+      const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color(c, c, c), side: T.DoubleSide }));
+      m.position.set(x, y, z); m.rotation.set(rx, ry, 0); e.add(m);
+    };
+    panel(40, 10, 0, 30, 0, 5, 0, Math.PI / 2);          /* верхний свет */
+    panel(8, 50, -28, 0, 10, 6, Math.PI / 2);            /* левая полоса */
+    panel(8, 50, 28, 0, -6, 4, Math.PI / 2);             /* правая полоса */
+    panel(30, 14, 0, 0, 34, 1.6);                        /* мягкий передний */
+    panel(30, 8, 0, -22, -20, 2.5, 0, Math.PI / 2);      /* нижний отсвет */
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(e, .03).texture;
+  })();
+  const key = new T.DirectionalLight(0xffffff, 1.4); key.position.set(-10, 14, 20); scene.add(key);
+  scene.add(new T.AmbientLight(0xffffff, .25));
+
+  /* ---------- геометрия ---------- */
+  const rrShape = (w, h, r) => {
+    const s = new T.Shape(), x = -w / 2, y = -h / 2;
+    s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.absarc(x + w - r, y + r, r, -Math.PI / 2, 0);
+    s.lineTo(x + w, y + h - r); s.absarc(x + w - r, y + h - r, r, 0, Math.PI / 2);
+    s.lineTo(x + r, y + h); s.absarc(x + r, y + h - r, r, Math.PI / 2, Math.PI);
+    s.lineTo(x, y + r); s.absarc(x + r, y + r, r, Math.PI, Math.PI * 1.5);
+    return s;
+  };
+  const rrFlat = (w, h, r) => {
+    const g = new T.ShapeGeometry(rrShape(w, h, r), 32), p = g.attributes.position, uv = g.attributes.uv;
+    for (let i = 0; i < p.count; i++) uv.setXY(i, p.getX(i) / w + .5, p.getY(i) / h + .5);
+    return g;
+  };
+  const rrBox = (w, h, r, depth, bevel, segs = 6) => {
+    const g = new T.ExtrudeGeometry(rrShape(w - 2 * bevel, h - 2 * bevel, Math.max(.05, r - bevel)), {
+      depth: depth - 2 * bevel, bevelEnabled: true, bevelSize: bevel, bevelThickness: bevel, bevelSegments: segs, curveSegments: 40
+    });
+    g.translate(0, 0, -(depth - 2 * bevel) / 2); return g;
+  };
+
+  const frameMat = new T.MeshPhysicalMaterial({ color: PAL.red.frame, metalness: .85, roughness: .3, clearcoat: .3, clearcoatRoughness: .4 });
+  const backMat  = new T.MeshPhysicalMaterial({ color: PAL.red.base, metalness: .1, roughness: .32, clearcoat: 1, clearcoatRoughness: .12 });
+  const lowerMat = new T.MeshPhysicalMaterial({ color: PAL.red.lower, metalness: .05, roughness: .7, clearcoat: .15, transparent: true, opacity: .85 });
+  const plateMat = new T.MeshPhysicalMaterial({ color: PAL.red.base, metalness: .15, roughness: .22, clearcoat: 1, clearcoatRoughness: .08 });
+  const metalMat = new T.MeshStandardMaterial({ color: 0xc8cad2, metalness: 1, roughness: .22 });
+  const darkMat  = new T.MeshStandardMaterial({ color: 0x050508, metalness: .3, roughness: .5 });
+  const glassMat = new T.MeshPhysicalMaterial({ color: 0x070b1c, metalness: .2, roughness: .04, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 1.6 });
+
+  const phone = new T.Group();                      /* то, что вращаем */
+  const model = new T.Group(); phone.add(model);
+
+  model.add(new T.Mesh(rrBox(W, H, R, DEP, .18), frameMat));
+
+  /* --- задняя сторона (локальная система «как видит зритель сзади») --- */
+  const back = new T.Group(); back.rotation.y = Math.PI; back.position.z = -DEP / 2 - .004; model.add(back);
+  back.add(new T.Mesh(rrFlat(W - .3, H - .3, R - .15), backMat));
+  const lower = new T.Mesh(rrFlat(W - .3, (H - .3) * .66, .5), lowerMat);
+  lower.position.set(0, -(H - .3) * .17, .003);
+  /* нижняя матовая панель: скругляем только низ через маску формы */
+  (function () {
+    const w = W - .3, h = (H - .3) * .66, r = R - .15, s = new T.Shape(), x = -w / 2, y = -h / 2;
+    s.moveTo(x, y + h); s.lineTo(x, y + r); s.absarc(x + r, y + r, r, Math.PI, Math.PI * 1.5);
+    s.lineTo(x + w - r, y); s.absarc(x + w - r, y + r, r, -Math.PI / 2, 0); s.lineTo(x + w, y + h); s.closePath();
+    lower.geometry = new T.ShapeGeometry(s, 32);
+  })();
+  back.add(lower);
+
+  /* плита камеры */
+  const PS = 3.7, PH = .14, plate = new T.Group();
+  plate.position.set(-W / 2 + .45 + PS / 2, H / 2 - .45 - PS / 2, .004);
+  const pm = new T.Mesh(rrBox(PS, PS, 1, PH, .05, 4), plateMat); pm.position.z = PH / 2; plate.add(pm);
+  back.add(plate);
+
+  const lens = (x, y) => {
+    const g = new T.Group(); g.position.set(x, y, PH + .02);
+    const ring = new T.Mesh(new T.TorusGeometry(.7, .09, 24, 64), metalMat); ring.position.z = .05; g.add(ring);
+    const wall = new T.Mesh(new T.CylinderGeometry(.72, .72, .16, 48, 1, true), metalMat); wall.rotation.x = Math.PI / 2; wall.position.z = .02; g.add(wall);
+    const well = new T.Mesh(new T.CircleGeometry(.7, 48), darkMat); well.position.z = -.02; g.add(well);
+    const gl = new T.Mesh(new T.SphereGeometry(.64, 48, 24, 0, Math.PI * 2, 0, Math.PI / 2), glassMat);
+    gl.rotation.x = Math.PI / 2; gl.scale.y = .2; gl.position.z = .02; g.add(gl);
+    const iris = new T.Mesh(new T.TorusGeometry(.3, .035, 12, 40), new T.MeshStandardMaterial({ color: 0x3b55c8, metalness: .8, roughness: .2, emissive: 0x0a1a66, emissiveIntensity: .6 }));
+    iris.position.z = .1; g.add(iris);
+    const pupil = new T.Mesh(new T.CircleGeometry(.2, 32), darkMat); pupil.position.z = .1; g.add(pupil);
+    return g;
+  };
+  plate.add(lens(-.9, .95), lens(.9, 0), lens(-.9, -.95));
+  const flash = new T.Mesh(new T.CylinderGeometry(.2, .2, .06, 32), new T.MeshStandardMaterial({ color: 0xf6f0dc, roughness: .3, emissive: 0x554f3a }));
+  flash.rotation.x = Math.PI / 2; flash.position.set(.95, .98, PH + .03); plate.add(flash);
+  const lidar = new T.Mesh(new T.CylinderGeometry(.24, .24, .05, 32), darkMat);
+  lidar.rotation.x = Math.PI / 2; lidar.position.set(.95, -.98, PH + .025); plate.add(lidar);
+  const mic = new T.Mesh(new T.CylinderGeometry(.09, .09, .04, 16), darkMat);
+  mic.rotation.x = Math.PI / 2; mic.position.set(1.3, .3, PH + .02); plate.add(mic);
+  /* логотип */
+  const logo = new T.Mesh(new T.CircleGeometry(.5, 40), new T.MeshStandardMaterial({ color: 0xffffff, metalness: .9, roughness: .25, transparent: true, opacity: .55 }));
+  logo.position.set(0, -1.2, .008); back.add(logo);
+
+  /* --- передняя сторона --- */
+  const front = new T.Group(); front.position.z = DEP / 2 + .003; model.add(front);
+  front.add(new T.Mesh(rrFlat(W - .26, H - .26, R - .13), new T.MeshPhysicalMaterial({ color: 0x020203, roughness: .2, metalness: .2, clearcoat: 1 })));
+  const sc = document.createElement('canvas'); sc.width = 512; sc.height = 1088;
+  const sctx = sc.getContext('2d'), stex = new T.CanvasTexture(sc); stex.colorSpace = T.SRGBColorSpace; stex.anisotropy = 8;
+  const SW = W - .52, SH = H - .52;
+  const screen = new T.Mesh(rrFlat(SW, SH, R - .26), new T.MeshBasicMaterial({ map: stex, toneMapped: false }));
+  screen.position.z = .004; front.add(screen);
+  const glare = new T.Mesh(rrFlat(SW, SH, R - .26), new T.MeshPhysicalMaterial({ roughness: 0, metalness: 0, transparent: true, opacity: .06, clearcoat: 1, color: 0xffffff }));
+  glare.position.z = .01; front.add(glare);
+
   /* кнопки на боковых гранях */
-  [[120, 64, 'left'], [196, 64, 'left'], [150, 94, 'right']].forEach(([top, h, side]) => {
-    const b = document.createElement('div');
-    b.className = 'btn';
-    b.style.cssText = `top:${top}px;height:${h}px;${side}:-3px;transform:translateZ(0)`;
-    phone.appendChild(b);
-  });
+  const btn = (y, h, side) => {
+    const m = new T.Mesh(rrBox(.14, h, .06, .12, .03, 3), frameMat); m.position.set(side * (W / 2 + .01), y, 0); model.add(m);
+  };
+  btn(4.2, .9, -1); btn(2.7, 1.5, -1); btn(1.0, 1.5, -1); btn(2.8, 2.6, 1);
 
-  /* ---------- сцены ---------- */
-  const secs = $$('main section');
-  const dots = $('#dots');
-  secs.forEach((s, i) => {
-    const a = document.createElement('a'); a.href = '#' + s.id; a.setAttribute('aria-label', 'Раздел ' + (i + 1)); dots.appendChild(a);
-  });
+  scene.add(phone);
+
+  /* мягкая тень на полу */
+  const sh = document.createElement('canvas'); sh.width = sh.height = 128;
+  const sx = sh.getContext('2d'), gr = sx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gr.addColorStop(0, 'rgba(0,0,0,.7)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); sx.fillStyle = gr; sx.fillRect(0, 0, 128, 128);
+  const shadow = new T.Mesh(new T.PlaneGeometry(10, 10), new T.MeshBasicMaterial({ map: new T.CanvasTexture(sh), transparent: true, depthWrite: false, opacity: .55 }));
+  shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
+
+  /* ---------- обои на экране ---------- */
+  const hex = c => '#' + new T.Color(c).getHexString();
+  function drawScreen(c1, c2) {
+    const w = 512, h = 1088, g = sctx;
+    g.fillStyle = '#07070a'; g.fillRect(0, 0, w, h);
+    let r = g.createRadialGradient(w * .3, h * .18, 0, w * .3, h * .18, w * 1.1);
+    r.addColorStop(0, hex(c1.clone().lerp(new T.Color(1, 1, 1), .35))); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, w, h);
+    r = g.createRadialGradient(w * .85, h * .92, 0, w * .85, h * .92, w * 1.2);
+    r.addColorStop(0, hex(c2)); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#000'; const iw = 150, ih = 44; g.beginPath(); g.roundRect((w - iw) / 2, 34, iw, ih, 22); g.fill();
+    g.fillStyle = '#fff'; g.textAlign = 'center';
+    g.font = '500 25px -apple-system,Inter,Segoe UI,sans-serif'; g.globalAlpha = .85; g.fillText('Воскресенье, 18 октября', w / 2, 190);
+    g.globalAlpha = 1; g.font = '600 168px -apple-system,Inter,Segoe UI,sans-serif'; g.fillText('9:41', w / 2, 340);
+    g.fillStyle = 'rgba(255,255,255,.17)'; g.strokeStyle = 'rgba(255,255,255,.22)'; g.lineWidth = 2;
+    [[28, 800], [268, 800]].forEach(([x, y]) => { g.beginPath(); g.roundRect(x, y, 216, 130, 36); g.fill(); g.stroke(); });
+    g.beginPath(); g.roundRect(28, 946, 456, 72, 34); g.fill(); g.stroke();
+    stex.needsUpdate = true;
+  }
+
+  /* ---------- цвет (плавный переход) ---------- */
+  let colorKey = 'red';
+  const live = { base: new T.Color(PAL.red.base), frame: new T.Color(PAL.red.frame), lower: new T.Color(PAL.red.lower) };
+  function tweenColors() {
+    const p = PAL[colorKey]; let moving = false;
+    for (const k of ['base', 'frame', 'lower']) {
+      const t = new T.Color(p[k]);
+      if (Math.abs(live[k].r - t.r) + Math.abs(live[k].g - t.g) + Math.abs(live[k].b - t.b) > .002) { live[k].lerp(t, .08); moving = true; } else live[k].copy(t);
+    }
+    backMat.color.copy(live.base); plateMat.color.copy(live.base); frameMat.color.copy(live.frame); lowerMat.color.copy(live.lower);
+    if (moving) drawScreen(live.base, live.lower);
+  }
+  drawScreen(live.base, live.lower);
+
+  /* ---------- раскладка / сцены ---------- */
+  const secs = $$('main section'), dots = $('#dots');
+  secs.forEach((s, i) => { const a = document.createElement('a'); a.href = '#' + s.id; a.setAttribute('aria-label', 'Раздел ' + (i + 1)); dots.appendChild(a); });
   const dotEls = $$('a', dots);
-
-  let cur = { ry: 152, rx: -5, x: .26, s: 1 };
+  const rad = d => d * Math.PI / 180;
+  const first = secs[0].dataset;
+  let cur = { ry: rad(+first.ry), rx: rad(+first.rx), x: +first.x, y: 0, s: +first.s };
   let tgt = { ...cur };
-  let drag = { ry: 0, rx: 0 }, dragging = false, last = null, flipOff = 0, mouse = { x: 0, y: 0 };
-  let active = 0;
+  let drag = { ry: 0, rx: 0 }, dragging = false, last = null, flipOff = 0, flipCur = 0, mouse = { x: 0, y: 0 };
 
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      active = secs.indexOf(e.target);
-      const d = e.target.dataset;
-      tgt = { ry: +d.ry, rx: +d.rx, x: +d.x, s: +d.s };
-      drag.ry *= .0; drag.rx = 0;            /* при смене раздела возвращаем модель в позу */
-      dotEls.forEach((a, i) => a.classList.toggle('on', i === active));
-    }
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    const d = e.target.dataset;
+    tgt = { ry: rad(+d.ry), rx: rad(+d.rx), x: +d.x, y: +(d.y || 0), s: +d.s };
+    dotEls.forEach((a, i) => a.classList.toggle('on', i === secs.indexOf(e.target)));
   }), { threshold: .55 });
   secs.forEach(s => io.observe(s));
 
-  /* вращение мышью / пальцем */
-  phone.addEventListener('pointerdown', e => { dragging = true; last = e; phone.setPointerCapture(e.pointerId); });
-  phone.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    drag.ry += (e.clientX - last.clientX) * .55;
-    drag.rx = Math.max(-35, Math.min(35, drag.rx - (e.clientY - last.clientY) * .35));
-    last = e;
+  /* вращение: берём модель мышью/пальцем (луч попадает в телефон) */
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  const hit = e => {
+    ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera); return ray.intersectObject(phone, true).length > 0;
+  };
+  addEventListener('pointerdown', e => { if (e.target.closest('button,a,.toggle,.swatches')) return; if (hit(e)) { dragging = true; last = e; document.body.classList.add('grabbing'); } });
+  addEventListener('pointermove', e => {
+    mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5;
+    if (dragging) {
+      drag.ry += (e.clientX - last.clientX) * .011;
+      drag.rx = Math.max(-.6, Math.min(.6, drag.rx + (e.clientY - last.clientY) * .006));
+      last = e;
+    } else if (e.pointerType === 'mouse') document.body.classList.toggle('over', hit(e));
   });
-  const end = () => { dragging = false; };
-  phone.addEventListener('pointerup', end); phone.addEventListener('pointercancel', end);
-  addEventListener('pointermove', e => { mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5; });
+  const end = () => { dragging = false; document.body.classList.remove('grabbing'); };
+  addEventListener('pointerup', end); addEventListener('pointercancel', end);
 
-  $('#flip').addEventListener('click', () => { flipOff += 180; });
-
-  /* цвет */
+  $('#flip').addEventListener('click', () => { flipOff += Math.PI; });
   $$('.sw').forEach(b => b.addEventListener('click', () => {
     $$('.sw').forEach(x => x.classList.toggle('on', x === b));
-    body.dataset.color = b.dataset.c;
-    flipOff += 360;                                    /* красивый оборот при смене цвета */
+    body.dataset.color = colorKey = b.dataset.c; flipOff += Math.PI * 2;
   }));
-  /* тема */
   $$('.toggle button').forEach(b => b.addEventListener('click', () => {
     $$('.toggle button').forEach(x => x.classList.toggle('on', x === b));
     body.dataset.theme = b.dataset.theme;
+    shadow.material.color.set(b.dataset.theme === 'euro' ? 0x6b4a3a : 0x000000);
   }));
 
-  /* ---------- цикл анимации ---------- */
+  function resize() {
+    const w = innerWidth, h = innerHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  addEventListener('resize', resize); resize();
+
+  /* ---------- цикл ---------- */
   const lerp = (a, b, k) => a + (b - a) * k;
-  let flipCur = 0, t0 = performance.now();
+  const t0 = performance.now();
   function frame(now) {
-    const t = (now - t0) / 1000;
-    const k = .075;
-    cur.ry = lerp(cur.ry, tgt.ry, k); cur.rx = lerp(cur.rx, tgt.rx, k);
-    cur.x = lerp(cur.x, tgt.x, k);     cur.s = lerp(cur.s, tgt.s, k);
+    const t = (now - t0) / 1000, k = .07;
+    for (const key in tgt) cur[key] = lerp(cur[key], tgt[key], k);
     flipCur = lerp(flipCur, flipOff, .06);
     if (!dragging) { drag.ry = lerp(drag.ry, 0, .02); drag.rx = lerp(drag.rx, 0, .03); }
-    const narrow = innerWidth <= 820;
-    const px = narrow ? 0 : cur.x * innerWidth;
-    const py = Math.sin(t * .9) * 6 - (narrow ? 0 : 0);
-    const ry = cur.ry + drag.ry + flipCur + mouse.x * 10 + Math.sin(t * .5) * 2;
-    const rx = cur.rx + drag.rx - mouse.y * 8;
-    const s = cur.s * (narrow ? 1 : Math.min(1, innerHeight / 760));
-    rig.style.transform = `translate3d(${px}px,${py}px,0) scale(${s})`;
-    phone.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    tweenColors();
+
+    const vh = 2 * DIST * Math.tan(rad(15)), vw = vh * camera.aspect, narrow = innerWidth <= 820;
+    let s0 = .78 * vh / H; if (narrow) s0 = Math.min(s0 * .74, .62 * vw / W);
+    const s = cur.s * s0;
+    phone.scale.setScalar(s);
+    phone.position.set(narrow ? 0 : cur.x * vw, (narrow ? vh * .13 : 0) + cur.y * vh + Math.sin(t * .9) * .18, 0);
+    phone.rotation.set(cur.rx + drag.rx - mouse.y * .12, cur.ry + drag.ry + flipCur + mouse.x * .18 + Math.sin(t * .5) * .03, 0);
+    shadow.position.set(phone.position.x, phone.position.y - H / 2 * s - .5, 0);
+    shadow.scale.setScalar(s * .9);
+    shadow.material.opacity = .5 - Math.sin(t * .9) * .04;
+    renderer.render(scene, camera);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
