@@ -4,170 +4,195 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>iPhone 18 Pro Max — презентация</title>
-<meta name="description" content="Концепт-презентация iPhone 18 Pro Max: 3D-модель, цвета, камера, дисплей и чип.">
+<meta name="description" content="Концепт-презентация iPhone 18 Pro Max: 3D-модель, цвета, камера, дисплей, чип и предзаказ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-@property --c1{syntax:'<color>';inherits:true;initial-value:#d4162f}
-@property --c2{syntax:'<color>';inherits:true;initial-value:#8d0a1c}
-@property --b1{syntax:'<color>';inherits:true;initial-value:#b3153f}
-@property --b2{syntax:'<color>';inherits:true;initial-value:#3a0614}
-@property --b3{syntax:'<color>';inherits:true;initial-value:#0b0306}
+@property --b1{syntax:'<color>';inherits:true;initial-value:#f2d5d0}
+@property --b2{syntax:'<color>';inherits:true;initial-value:#f1e8e1}
+@property --b3{syntax:'<color>';inherits:true;initial-value:#e8e1d8}
 
+/* Интерьерный стиль «евро»: штукатурка, молдинг, матовые панели, тонкие линии.
+   Заголовки — Cormorant Garamond, текст — Manrope. */
 :root{
   --ease:cubic-bezier(.22,.8,.24,1);
-  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
-  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --fg:#fff;--muted:rgba(255,255,255,.62);--line:rgba(255,255,255,.16);--card:rgba(255,255,255,.07);
-  transition:--c1 .9s,--c2 .9s,--b1 .9s,--b2 .9s,--b3 .9s;
+  --serif:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --sans:"Manrope",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-variant-numeric:lining-nums;--ink:#2a2622;--muted:rgba(42,38,34,.64);--line:rgba(42,38,34,.16);--card:rgba(255,255,255,.58);--paper:#f3efe8;
+  --b1:#f2d5d0;--b2:#f1e8e1;--b3:#e8e1d8;
+  transition:--b1 .9s,--b2 .9s,--b3 .9s;
 }
-/* ---------- цвета корпуса ---------- */
-body[data-color=red]{--c1:#e0132f;--c2:#8d0a1c}
-body[data-color=blue]{--c1:#2f62e0;--c2:#16307a}
-body[data-color=silver]{--c1:#dcdce2;--c2:#9b9ba5}
-body[data-color=graphite]{--c1:#3a3a40;--c2:#18181b}
-/* тёмная тема (как на видео) */
-body[data-theme=dark][data-color=red]{--b1:#b3153f;--b2:#3a0614;--b3:#0b0306}
-body[data-theme=dark][data-color=blue]{--b1:#1f4fb8;--b2:#0b1a45;--b3:#04070f}
-body[data-theme=dark][data-color=silver]{--b1:#6f7280;--b2:#23252d;--b3:#08090b}
-body[data-theme=dark][data-color=graphite]{--b1:#4a4a55;--b2:#17171c;--b3:#050506}
-/* «Евро» — светлая штукатурка, мягкие тона */
-body[data-theme=euro]{--fg:#2b2622;--muted:rgba(43,38,34,.62);--line:rgba(43,38,34,.16);--card:rgba(255,255,255,.55)}
-body[data-theme=euro][data-color=red]{--b1:#f2d5d0;--b2:#f1e8e1;--b3:#e8e1d8}
-body[data-theme=euro][data-color=blue]{--b1:#cfdaee;--b2:#ebe9e5;--b3:#e6e2da}
-body[data-theme=euro][data-color=silver]{--b1:#e4e3e1;--b2:#efede8;--b3:#e7e3db}
-body[data-theme=euro][data-color=graphite]{--b1:#d6d2cc;--b2:#ebe8e2;--b3:#ded9d1}
+body[data-color=red]{--b1:#f2d5d0;--b2:#f1e8e1;--b3:#e8e1d8}
+body[data-color=blue]{--b1:#cfdcee;--b2:#ebe9e5;--b3:#e6e2da}
+body[data-color=silver]{--b1:#e4e3e1;--b2:#efede8;--b3:#e7e3db}
+body[data-color=graphite]{--b1:#d6d2cc;--b2:#ebe8e2;--b3:#ded9d1}
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--sans);color:var(--fg);background:var(--b3);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:color .6s}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+body{font-family:var(--sans);font-weight:400;color:var(--ink);background:var(--b3);overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
 
 .bg{position:fixed;inset:0;z-index:-3;
   background:
    radial-gradient(70% 60% at 62% 42%,var(--b1) 0%,transparent 70%),
-   radial-gradient(90% 80% at 10% 100%,var(--b2) 0%,transparent 70%),
+   radial-gradient(90% 80% at 8% 100%,var(--b2) 0%,transparent 70%),
    var(--b3)}
-.grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+.grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.16;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
-body[data-theme=euro] .grain{opacity:.16;mix-blend-mode:multiply}
-/* молдинг/багет по периметру — только в «Евро» */
-.molding{position:fixed;inset:14px;z-index:-1;pointer-events:none;border:1px solid transparent;border-radius:6px;transition:border-color .6s}
-.molding::after{content:"";position:absolute;inset:8px;border:1px solid transparent;border-radius:3px;transition:border-color .6s}
-body[data-theme=euro] .molding,body[data-theme=euro] .molding::after{border-color:rgba(43,38,34,.14)}
+/* молдинг по периметру */
+.molding{position:fixed;inset:14px;z-index:-1;pointer-events:none;border:1px solid rgba(42,38,34,.14);border-radius:3px}
+.molding::after{content:"";position:absolute;inset:8px;border:1px solid rgba(42,38,34,.1);border-radius:2px}
 
 /* ---------- шапка ---------- */
-header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:26px clamp(20px,4vw,56px)}
-.logo{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
-.toggle{display:flex;gap:4px;padding:4px;border-radius:99px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.toggle button{padding:8px 16px;border-radius:99px;font-size:12px;letter-spacing:.04em;opacity:.65;transition:.4s var(--ease)}
-.toggle button.on{opacity:1;background:var(--fg);color:var(--b3)}
-body[data-theme=dark] .toggle button.on{color:#120408}
-body[data-theme=euro] .toggle button.on{color:#f1ece4}
+header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px clamp(26px,4.5vw,64px)}
+.logo{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.01em;white-space:nowrap}
+.logo span{font-weight:400;font-style:italic;color:var(--muted)}
+nav.top{display:flex;gap:30px;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+nav.top a{color:var(--muted);text-decoration:none;transition:color .3s}
+nav.top a:hover{color:var(--ink)}
+.hbtn{padding:11px 22px;border:1px solid var(--ink);border-radius:99px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--ink);transition:.4s var(--ease)}
+.hbtn:hover{background:var(--ink);color:var(--paper)}
 
 /* ---------- сцена Three.js ---------- */
 #gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;display:block}
 body.over{cursor:grab}body.grabbing,body.grabbing *{cursor:grabbing!important;user-select:none}
 main{touch-action:pan-y}
-.no-gl::after{content:"Для 3D нужен WebGL — включите аппаратное ускорение в браузере.";position:fixed;left:0;right:0;top:50%;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.no-gl::after{content:"Для 3D нужен WebGL — включите аппаратное ускорение в браузере.";position:fixed;left:0;right:0;top:50%;text-align:center;font-size:13px;color:var(--muted)}
 
 /* ---------- контент ---------- */
 main{position:relative;z-index:5}
-section{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:110px clamp(20px,6vw,96px)}
-.copy{max-width:380px;opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+section{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:120px clamp(30px,7vw,110px)}
+.copy{max-width:420px;opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 section.in .copy{opacity:1;transform:none}
 section.right{justify-content:flex-end}
 section.center{justify-content:center;text-align:center}
-section.center .copy{max-width:560px}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;display:flex;gap:10px;align-items:center}
-.eyebrow::before{content:"";width:22px;height:1px;background:currentColor}
+section.center .copy{max-width:600px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;display:flex;gap:14px;align-items:center}
+.eyebrow::before{content:"";width:32px;height:1px;background:currentColor}
 section.center .eyebrow{justify-content:center}
-h1,h2{font-weight:600;letter-spacing:-.035em;line-height:.98}
-h1{font-size:clamp(44px,6vw,84px)}
-h1 em{display:block;font-style:normal;font-weight:300;color:var(--muted)}
-h2{font-size:clamp(34px,4.4vw,60px)}
-h2 em{font-style:normal;font-weight:300;color:var(--muted)}
-.copy p{margin-top:22px;font-size:15.5px;line-height:1.55;color:var(--muted)}
-.hint{font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.7;margin-top:22px;color:var(--muted);opacity:.8}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:30px}
-.stat{padding:16px 18px;border-radius:20px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.stat b{display:block;font-size:28px;font-weight:600;letter-spacing:-.03em}
-.stat span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
-body[data-theme=euro] .stat{box-shadow:0 18px 40px -22px rgba(60,40,30,.35)}
-.cta{display:inline-flex;margin-top:30px;padding:15px 30px;border-radius:99px;background:var(--fg);color:var(--b3);font-size:14px;font-weight:600;transition:transform .5s var(--ease)}
-body[data-theme=dark] .cta{color:#120408}
-body[data-theme=euro] .cta{color:#f1ece4}
-.cta:hover{transform:scale(1.05)}
-.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:34px;text-align:left}
-.specs div{padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.specs dd{font-size:15px;margin-top:4px}
-.disc{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:26px;opacity:.7}
+h1,h2{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:.95}
+h1{font-size:clamp(60px,7.4vw,112px)}
+h1 em,h2 em{display:block;font-style:italic;font-weight:400;color:var(--muted)}
+h2{font-size:clamp(42px,5vw,72px)}
+.copy p{margin-top:26px;font-size:15px;line-height:1.75;font-weight:400;color:var(--muted)}
+.hint{margin-top:26px;font-size:11px;letter-spacing:.06em;line-height:1.8;color:var(--muted);opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
+.stat{padding:18px 20px;border-radius:4px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 22px 40px -28px rgba(60,40,30,.45)}
+.stat b{display:block;font-family:var(--serif);font-size:36px;font-weight:500;letter-spacing:-.01em;line-height:1}
+.stat span{display:block;margin-top:8px;font-size:10px;font-weight:600;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.cta{display:inline-flex;margin-top:34px;padding:17px 34px;border-radius:99px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;transition:transform .5s var(--ease),box-shadow .5s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 18px 30px -16px rgba(40,26,20,.6)}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:38px;text-align:left}
+.specs div{padding:16px 18px;border-radius:4px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.specs dt{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.specs dd{font-family:var(--serif);font-size:21px;font-weight:500;margin-top:6px}
+.disc{font-size:11px;color:var(--muted);margin-top:26px;opacity:.8;line-height:1.6}
+
+/* ---------- форма предзаказа ---------- */
+.order{max-width:460px;width:100%;padding:34px 40px 30px;border-radius:4px;background:rgba(250,247,242,.72);border:1px solid var(--line);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 40px 70px -40px rgba(60,40,30,.55)}
+.order h2{font-size:clamp(38px,4vw,54px)}
+.field{margin-top:20px;border:0}
+.field>legend,.field>label{display:block;padding:0;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:11px 16px;border:1px solid var(--line);border-radius:3px;font-size:12px;font-weight:500;background:rgba(255,255,255,.5);transition:.3s var(--ease)}
+.chip small{display:block;margin-top:2px;font-size:10px;color:var(--muted);letter-spacing:.04em}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.on small{color:rgba(243,239,232,.7)}
+.cdot{width:30px;height:30px;border-radius:50%;border:2px solid transparent;outline:1px solid var(--line);outline-offset:0;transition:.3s var(--ease);position:relative}
+.cdot.on{border-color:var(--paper);outline:2px solid var(--ink)}
+.cdot[data-c=red]{background:#c8102a}.cdot[data-c=blue]{background:#1a72e0}.cdot[data-c=silver]{background:#d6d6dc}.cdot[data-c=graphite]{background:#2b2b31}
+.cname{margin-left:6px;align-self:center;font-size:12px;color:var(--muted)}
+.order input[type=text],.order input[type=tel]{width:100%;padding:14px 0;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:15px;outline:0;border-radius:0;transition:border-color .3s}
+.order input:focus{border-bottom-color:var(--ink)}
+.order input::placeholder{color:rgba(42,38,34,.35)}
+.order input.bad{border-bottom-color:#a3283a}
+.err{min-height:16px;margin-top:6px;font-size:11px;color:#a3283a}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.total span{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.total b{font-family:var(--serif);font-size:38px;font-weight:500;letter-spacing:-.01em}
+.order .cta{width:100%;justify-content:center;margin-top:22px}
+.done{max-width:460px;padding:40px;border-radius:4px;background:rgba(250,247,242,.78);border:1px solid var(--line);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 40px 70px -40px rgba(60,40,30,.55)}
+.done[hidden]{display:none}
+.done h2{font-size:clamp(36px,4vw,50px)}
+.done .num{margin-top:22px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.done dl{margin-top:20px;display:grid;gap:10px}
+.done dl div{display:flex;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:1px solid var(--line);font-size:14px}
+.done dt{color:var(--muted)}.done dd{text-align:right;font-weight:500}
+.done .link{display:inline-block;margin-top:24px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--ink);padding:0 0 3px;cursor:pointer}
 
 /* выбор цвета */
-.swatches{position:fixed;z-index:20;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:6px;padding:8px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);align-items:center}
-.sw{width:22px;height:22px;border-radius:50%;border:2px solid transparent;outline:1px solid var(--line);transition:transform .4s var(--ease),border-color .3s;position:relative}
+.swatches{position:fixed;z-index:20;left:50%;bottom:28px;transform:translateX(-50%);display:flex;gap:8px;padding:9px 12px;border-radius:99px;background:rgba(250,247,242,.7);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);align-items:center;box-shadow:0 18px 34px -22px rgba(60,40,30,.5)}
+.sw{width:22px;height:22px;border-radius:50%;border:2px solid transparent;outline:1px solid var(--line);transition:transform .4s var(--ease),border-color .3s}
 .sw:hover{transform:scale(1.15)}
-.sw.on{border-color:var(--fg);transform:scale(1.18)}
-.sw[data-c=red]{background:#e0132f}.sw[data-c=blue]{background:#2f62e0}.sw[data-c=silver]{background:#dcdce2}.sw[data-c=graphite]{background:#2c2c31}
-.flip{margin-left:6px;padding:6px 12px;border-radius:99px;font-family:var(--mono);font-size:11px;border-left:1px solid var(--line);border-radius:0 99px 99px 0;opacity:.8}
-.flip:hover{opacity:1}
-.scroll{position:fixed;right:clamp(16px,3vw,40px);top:50%;z-index:20;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px}
-.scroll a{width:6px;height:6px;border-radius:50%;background:var(--fg);opacity:.25;transition:.4s var(--ease)}
-.scroll a.on{opacity:1;height:22px;border-radius:4px}
+.sw.on{border-color:var(--paper);outline:2px solid var(--ink);transform:scale(1.1)}
+.sw[data-c=red]{background:#c8102a}.sw[data-c=blue]{background:#1a72e0}.sw[data-c=silver]{background:#d6d6dc}.sw[data-c=graphite]{background:#2b2b31}
+.flip{margin-left:6px;padding:6px 6px 6px 14px;border-left:1px solid var(--line);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.flip:hover{color:var(--ink)}
+.scroll{position:fixed;right:clamp(18px,3.2vw,44px);top:50%;z-index:20;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px}
+.ordering .swatches{opacity:0;pointer-events:none}
+.swatches{transition:opacity .4s}
+.scroll a{width:5px;height:5px;border-radius:50%;background:var(--ink);opacity:.25;transition:.4s var(--ease)}
+.scroll a.on{opacity:1;height:22px;border-radius:3px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
+@media (max-width:960px){nav.top{display:none}}
 @media (max-width:820px){
-    section{align-items:flex-end;padding:100px 22px 110px}
+  header{padding:22px 24px}
+  section{align-items:flex-end;padding:100px 20px 110px}
   section,section.right,section.center{justify-content:flex-start;text-align:left}
   section.center .eyebrow{justify-content:flex-start}
-  .copy,section.center .copy{max-width:none;padding:18px 18px 20px;border-radius:26px;background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line)}
-  h1{font-size:40px}h2{font-size:32px}
-  .copy p{font-size:14px;margin-top:12px}
+  .copy,section.center .copy{max-width:none;padding:22px 22px 24px;border-radius:4px;background:rgba(250,247,242,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line)}
+  h1{font-size:54px}h2{font-size:40px}
+  .copy p{font-size:14px;margin-top:14px}
   .hint{display:none}
-  .stats{margin-top:16px}.stat{padding:12px 14px}.stat b{font-size:22px}
+  .stats{margin-top:18px}.stat{padding:12px 14px}.stat b{font-size:28px}
   .scroll{display:none}
   #s-end{align-items:center}
-  .specs{grid-template-columns:1fr 1fr}
+  #s-order{align-items:flex-start;padding-top:50svh}
+  .order,.done{padding:26px 22px}
+  .molding{inset:8px}
 }
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important}html{scroll-behavior:auto}}
 </style>
 </head>
-<body data-theme="dark" data-color="red">
+<body data-color="red">
 <div class="bg"></div><div class="grain"></div><div class="molding"></div>
 
 <header>
-  <div class="logo">iPhone 18 Pro Max · концепт</div>
-  <div class="toggle" role="group" aria-label="Тема">
-    <button data-theme="dark" class="on">Тёмная</button>
-    <button data-theme="euro">Евро</button>
-  </div>
+  <div class="logo">iPhone 18 <span>Pro Max</span></div>
+  <nav class="top"><a href="#s-cam">Камера</a><a href="#s-disp">Дисплей</a><a href="#s-chip">Чип</a><a href="#s-bat">Автономность</a></nav>
+  <a class="hbtn" href="#s-order">Предзаказ</a>
 </header>
 
 <canvas id="gl" aria-hidden="true"></canvas>
-
 <nav class="scroll" id="dots"></nav>
 
 <main>
-  <section id="s-hero" data-ry="152" data-rx="-5" data-x=".26" data-s="1" data-c="">
+  <section id="s-hero" data-ry="152" data-rx="-5" data-x=".26" data-s="1">
     <div class="copy">
       <div class="eyebrow">Новое поколение</div>
       <h1>iPhone 18<em>Pro Max</em></h1>
       <p>Главный цвет поколения. Глубокий красный на задней панели и боковых гранях — насыщенный, но не кричащий.</p>
-      <div class="hint">Тяните телефон мышью или пальцем, чтобы вращать.<br>Ниже — выберите цвет.</div>
+      <div class="hint">Возьмите телефон мышью или пальцем и вращайте.<br>Цвет корпуса выбирается внизу.</div>
     </div>
   </section>
 
   <section id="s-cam" class="right" data-ry="196" data-rx="-4" data-x="-.23" data-y="-.1" data-s="1.45">
     <div class="copy">
       <div class="eyebrow">Камера</div>
-      <h2>Три глаза.<br><em>Один взгляд.</em></h2>
+      <h2>Три глаза.<em>Один взгляд.</em></h2>
       <p>Единая стеклянная площадка, цельная с корпусом. Основная, сверхширокая и 8× телеобъектив — без переключений и без компромиссов в свете.</p>
       <div class="stats"><div class="stat"><b>48 Мп</b><span>Основная</span></div><div class="stat"><b>8×</b><span>Оптический зум</span></div></div>
     </div>
   </section>
 
-  <section id="s-disp" data-ry="8" data-rx="0" data-x="0.27" data-s="1.05">
+  <section id="s-disp" data-ry="8" data-rx="0" data-x=".27" data-s="1.05">
     <div class="copy">
       <div class="eyebrow">Дисплей</div>
-      <h2>Экран,<br><em>которого не видно.</em></h2>
+      <h2>Экран,<em>которого не видно.</em></h2>
       <p>6,9″ ProMotion с тончайшими рамками. Яркость до 3000 нит, адаптивная частота 1–120 Гц и плавность, которую чувствуешь пальцем.</p>
       <div class="stats"><div class="stat"><b>3000</b><span>нит пик</span></div><div class="stat"><b>120 Гц</b><span>ProMotion</span></div></div>
     </div>
@@ -176,7 +201,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
   <section id="s-chip" class="right" data-ry="-62" data-rx="8" data-x="-.24" data-s="1.05">
     <div class="copy">
       <div class="eyebrow">Чип</div>
-      <h2>A20 Pro.<br><em>Тихая мощность.</em></h2>
+      <h2>A20 Pro.<em>Тихая мощность.</em></h2>
       <p>Первый 2‑нм чип в iPhone. Быстрее на 20%, холоднее на 30%, и нейроядра, которые понимают контекст прямо на устройстве.</p>
       <div class="stats"><div class="stat"><b>2 нм</b><span>Техпроцесс</span></div><div class="stat"><b>+20%</b><span>Скорость CPU</span></div></div>
     </div>
@@ -185,7 +210,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
   <section id="s-bat" data-ry="-148" data-rx="-6" data-x=".25" data-s="1">
     <div class="copy">
       <div class="eyebrow">Автономность</div>
-      <h2>Два дня<br><em>без розетки.</em></h2>
+      <h2>Два дня<em>без розетки.</em></h2>
       <p>Новая кремний-углеродная батарея и энергоэффективный модем. Зарядка 50% за 20 минут, MagSafe 40 Вт.</p>
       <div class="stats"><div class="stat"><b>до 48 ч</b><span>Работа</span></div><div class="stat"><b>40 Вт</b><span>MagSafe</span></div></div>
     </div>
@@ -193,16 +218,58 @@ body[data-theme=euro] .cta{color:#f1ece4}
 
   <section id="s-end" class="center" data-ry="168" data-rx="-3" data-x="0" data-s=".78">
     <div class="copy">
-      <div class="eyebrow">Предзаказ</div>
-      <h2>iPhone 18 Pro Max<br><em>от 139 990 ₽</em></h2>
+      <div class="eyebrow">Стоимость</div>
+      <h2>iPhone 18 Pro Max<em>от 139 990 ₽</em></h2>
       <dl class="specs">
         <div><dt>Память</dt><dd>256 ГБ — 2 ТБ</dd></div>
         <div><dt>Корпус</dt><dd>Титан, 6,9″</dd></div>
         <div><dt>Связь</dt><dd>5G, Wi‑Fi 8, eSIM</dd></div>
-        <div><dt>Цвета</dt><dd>4 оттенка</dd></div>
+        <div><dt>Цвета</dt><dd>Четыре оттенка</dd></div>
       </dl>
-      <button class="cta" onclick="alert('Это учебный концепт — предзаказа нет 🙂')">Оформить предзаказ</button>
-      <div class="disc">Концепт-страница. Продукт и характеристики вымышлены.</div>
+      <a class="cta" href="#s-order">Оформить предзаказ</a>
+    </div>
+  </section>
+
+  <section id="s-order" class="right" data-ry="-16" data-rx="0" data-x="-.22" data-s="1">
+    <form class="order copy" id="orderForm" novalidate>
+      <div class="eyebrow">Предзаказ</div>
+      <h2>Оформление<em>заказа</em></h2>
+      <fieldset class="field"><legend>Цвет</legend>
+        <div class="opts" id="oColors">
+          <button type="button" class="cdot on" data-c="red" data-n="Красный" aria-label="Красный"></button>
+          <button type="button" class="cdot" data-c="blue" data-n="Синий" aria-label="Синий"></button>
+          <button type="button" class="cdot" data-c="silver" data-n="Серебристый" aria-label="Серебристый"></button>
+          <button type="button" class="cdot" data-c="graphite" data-n="Графит" aria-label="Графит"></button>
+          <span class="cname" id="cname">Красный</span>
+        </div>
+      </fieldset>
+      <fieldset class="field"><legend>Память</legend>
+        <div class="opts" id="oMem">
+          <button type="button" class="chip on" data-m="256 ГБ" data-p="139990">256 ГБ<small>139 990 ₽</small></button>
+          <button type="button" class="chip" data-m="512 ГБ" data-p="159990">512 ГБ<small>159 990 ₽</small></button>
+          <button type="button" class="chip" data-m="1 ТБ" data-p="189990">1 ТБ<small>189 990 ₽</small></button>
+          <button type="button" class="chip" data-m="2 ТБ" data-p="229990">2 ТБ<small>229 990 ₽</small></button>
+        </div>
+      </fieldset>
+      <div class="field"><label for="fName">Имя</label><input id="fName" type="text" autocomplete="name" placeholder="Как к вам обращаться"></div>
+      <div class="field" style="margin-top:8px"><label for="fTel">Телефон</label><input id="fTel" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 900 000-00-00"></div>
+      <div class="err" id="err" role="alert"></div>
+      <div class="total"><span>Итого</span><b id="total">139 990 ₽</b></div>
+      <button class="cta" type="submit">Подтвердить предзаказ</button>
+      <div class="disc">Учебный концепт: продукт вымышлен, заявка никуда не отправляется.</div>
+    </form>
+    <div class="done copy" id="done" hidden>
+      <div class="eyebrow">Принято</div>
+      <h2>Спасибо,<em id="dName"></em></h2>
+      <div class="num" id="dNum"></div>
+      <dl>
+        <div><dt>Модель</dt><dd id="dModel"></dd></div>
+        <div><dt>Цвет</dt><dd id="dColor"></dd></div>
+        <div><dt>Память</dt><dd id="dMem"></dd></div>
+        <div><dt>Сумма</dt><dd id="dSum"></dd></div>
+      </dl>
+      <div class="disc">Это демонстрация: настоящий заказ не создан.</div>
+      <button type="button" class="link" id="again">Изменить заказ</button>
     </div>
   </section>
 </main>
@@ -212,7 +279,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
   <button class="sw" data-c="blue" aria-label="Синий"></button>
   <button class="sw" data-c="silver" aria-label="Серебристый"></button>
   <button class="sw" data-c="graphite" aria-label="Графит"></button>
-  <button class="flip" id="flip">↻ сторона</button>
+  <button class="flip" id="flip">Перевернуть</button>
 </div>
 
 <script src="vendor/three.min.js"></script>
@@ -240,6 +307,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.VSMShadowMap;
 
   const scene = new T.Scene();
   const camera = new T.PerspectiveCamera(30, 1, .1, 200);
@@ -257,12 +325,21 @@ body[data-theme=euro] .cta{color:#f1ece4}
     panel(40, 10, 0, 30, 0, 5, 0, Math.PI / 2);          /* верхний свет */
     panel(8, 50, -28, 0, 10, 6, Math.PI / 2);            /* левая полоса */
     panel(8, 50, 28, 0, -6, 4, Math.PI / 2);             /* правая полоса */
-    panel(30, 14, 0, 0, 34, 1.6);                        /* мягкий передний */
+    (function () {                                       /* градиентный софтбокс перед моделью: даёт плавный блик на глянце */
+      const c = document.createElement('canvas'); c.width = 8; c.height = 256; const g = c.getContext('2d');
+      const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#fff'); gr.addColorStop(.55, '#9a9a9a'); gr.addColorStop(1, '#2a2a2a');
+      g.fillStyle = gr; g.fillRect(0, 0, 8, 256);
+      const m = new T.Mesh(new T.PlaneGeometry(46, 30), new T.MeshBasicMaterial({ map: new T.CanvasTexture(c), color: new T.Color(2.3, 2.3, 2.3), side: T.DoubleSide }));
+      m.position.set(-4, 2, 30); m.rotation.z = -.35; e.add(m);
+    })();
     panel(30, 8, 0, -22, -20, 2.5, 0, Math.PI / 2);      /* нижний отсвет */
     const pm = new T.PMREMGenerator(renderer);
     scene.environment = pm.fromScene(e, .03).texture;
   })();
-  const key = new T.DirectionalLight(0xffffff, 1.4); key.position.set(-10, 14, 20); scene.add(key);
+  const key = new T.DirectionalLight(0xfff4e8, 1.6); key.position.set(-10, 14, 20); key.castShadow = true;
+  key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 14; key.shadow.blurSamples = 16; key.shadow.bias = -.0004; key.shadow.normalBias = .02;
+  Object.assign(key.shadow.camera, { left: -18, right: 18, top: 18, bottom: -18, near: 5, far: 70 });
+  scene.add(key);
   scene.add(new T.AmbientLight(0xffffff, .25));
 
   /* ---------- геометрия ---------- */
@@ -286,10 +363,10 @@ body[data-theme=euro] .cta{color:#f1ece4}
     g.translate(0, 0, -(depth - 2 * bevel) / 2); return g;
   };
 
-  const frameMat = new T.MeshPhysicalMaterial({ color: PAL.red.frame, metalness: .85, roughness: .3, clearcoat: .3, clearcoatRoughness: .4 });
-  const backMat  = new T.MeshPhysicalMaterial({ color: PAL.red.base, metalness: .1, roughness: .32, clearcoat: 1, clearcoatRoughness: .12 });
-  const lowerMat = new T.MeshPhysicalMaterial({ color: PAL.red.lower, metalness: .05, roughness: .7, clearcoat: .15, transparent: true, opacity: .85 });
-  const plateMat = new T.MeshPhysicalMaterial({ color: PAL.red.base, metalness: .15, roughness: .22, clearcoat: 1, clearcoatRoughness: .08 });
+  const frameMat = new T.MeshPhysicalMaterial({ color: PAL.red.frame, metalness: 1, roughness: .16, clearcoat: 1, clearcoatRoughness: .08, envMapIntensity: 1.3 });
+  const backMat  = new T.MeshPhysicalMaterial({ color: PAL.red.base, metalness: .25, roughness: .1, clearcoat: 1, clearcoatRoughness: .02, reflectivity: .9, envMapIntensity: 1.15 });
+  const lowerMat = new T.MeshPhysicalMaterial({ color: PAL.red.lower, metalness: .05, roughness: .5, clearcoat: .5, clearcoatRoughness: .3, envMapIntensity: .45, transparent: true, opacity: .8 });
+  const plateMat = new T.MeshPhysicalMaterial({ color: PAL.red.base, metalness: .3, roughness: .1, clearcoat: 1, clearcoatRoughness: .02, envMapIntensity: 1.15 });
   const metalMat = new T.MeshStandardMaterial({ color: 0xc8cad2, metalness: 1, roughness: .22 });
   const darkMat  = new T.MeshStandardMaterial({ color: 0x050508, metalness: .3, roughness: .5 });
   const glassMat = new T.MeshPhysicalMaterial({ color: 0x070b1c, metalness: .2, roughness: .04, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 1.6 });
@@ -318,9 +395,19 @@ body[data-theme=euro] .cta{color:#f1ece4}
   plate.position.set(-W / 2 + .45 + PS / 2, H / 2 - .45 - PS / 2, .004);
   const pm = new T.Mesh(rrBox(PS, PS, 1, PH, .05, 4), plateMat); pm.position.z = PH / 2; plate.add(pm);
   back.add(plate);
+  const aoTex = (shape, size = 256) => {                /* мягкая тень-«контакт» (AO) */
+    const c = document.createElement('canvas'); c.width = c.height = size; const g = c.getContext('2d');
+    g.shadowColor = 'rgba(0,0,0,.9)'; g.shadowBlur = size * .11; g.fillStyle = '#000';
+    if (shape === 'circle') { g.beginPath(); g.arc(size / 2, size / 2, size * .26, 0, 7); g.fill(); }
+    else { g.beginPath(); g.roundRect(size * .25, size * .25, size * .5, size * .5, size * .1); g.fill(); }
+    return new T.CanvasTexture(c);
+  };
+  const ao = (w, shape, z, op) => { const m = new T.Mesh(new T.PlaneGeometry(w, w), new T.MeshBasicMaterial({ map: aoTex(shape), transparent: true, depthWrite: false, opacity: op })); m.position.z = z; m.renderOrder = 2; return m; };
+  const plateAO = ao(PS * 2, 'rect', .002, .55); plateAO.position.x = plate.position.x + .12; plateAO.position.y = plate.position.y - .18; back.add(plateAO);
 
   const lens = (x, y) => {
     const g = new T.Group(); g.position.set(x, y, PH + .02);
+    g.add(Object.assign(ao(3.4, 'circle', -.012, .8), { castShadow: false }));
     const ring = new T.Mesh(new T.TorusGeometry(.7, .09, 24, 64), metalMat); ring.position.z = .05; g.add(ring);
     const wall = new T.Mesh(new T.CylinderGeometry(.72, .72, .16, 48, 1, true), metalMat); wall.rotation.x = Math.PI / 2; wall.position.z = .02; g.add(wall);
     const well = new T.Mesh(new T.CircleGeometry(.7, 48), darkMat); well.position.z = -.02; g.add(well);
@@ -339,8 +426,15 @@ body[data-theme=euro] .cta{color:#f1ece4}
   const mic = new T.Mesh(new T.CylinderGeometry(.09, .09, .04, 16), darkMat);
   mic.rotation.x = Math.PI / 2; mic.position.set(1.3, .3, PH + .02); plate.add(mic);
   /* логотип */
-  const logo = new T.Mesh(new T.CircleGeometry(.5, 40), new T.MeshStandardMaterial({ color: 0xffffff, metalness: .9, roughness: .25, transparent: true, opacity: .55 }));
-  logo.position.set(0, -1.2, .008); back.add(logo);
+  const pc = document.createElement('canvas'); pc.width = pc.height = 256; const pg = pc.getContext('2d');
+  pg.fillStyle = '#000'; pg.fillRect(0, 0, 256, 256); pg.fillStyle = '#fff'; pg.strokeStyle = '#fff'; pg.lineCap = 'round';
+  pg.beginPath(); pg.moveTo(128, 70); pg.bezierCurveTo(150, 70, 160, 94, 158, 114); pg.bezierCurveTo(156, 130, 198, 144, 198, 188);
+  pg.bezierCurveTo(198, 228, 166, 248, 128, 248); pg.bezierCurveTo(90, 248, 58, 228, 58, 188); pg.bezierCurveTo(58, 144, 100, 130, 98, 114);
+  pg.bezierCurveTo(96, 94, 106, 70, 128, 70); pg.fill();
+  pg.lineWidth = 9; pg.beginPath(); pg.moveTo(128, 72); pg.quadraticCurveTo(128, 50, 136, 36); pg.stroke();
+  pg.beginPath(); pg.moveTo(137, 46); pg.bezierCurveTo(150, 20, 182, 20, 194, 30); pg.bezierCurveTo(182, 54, 154, 60, 137, 46); pg.fill();
+  const logo = new T.Mesh(new T.PlaneGeometry(1.7, 1.7), new T.MeshPhysicalMaterial({ color: 0xfff6f2, metalness: .35, roughness: .22, emissive: 0x442222, emissiveIntensity: .35, alphaMap: new T.CanvasTexture(pc), alphaTest: .5, alphaToCoverage: true, envMapIntensity: 1.2 }));
+  logo.position.set(0, -1.3, .006); back.add(logo);
 
   /* --- передняя сторона --- */
   const front = new T.Group(); front.position.z = DEP / 2 + .003; model.add(front);
@@ -359,7 +453,13 @@ body[data-theme=euro] .cta{color:#f1ece4}
   };
   btn(4.2, .9, -1); btn(2.7, 1.5, -1); btn(1.0, 1.5, -1); btn(2.8, 2.6, 1);
 
+  model.traverse(o => { if (o.isMesh && o.material.type !== 'MeshBasicMaterial') { o.castShadow = true; } });
+  glare.castShadow = false; lower.castShadow = false;
   scene.add(phone);
+
+  /* тень телефона на «стене» позади — в тон штукатурке */
+  const wall = new T.Mesh(new T.PlaneGeometry(160, 160), new T.ShadowMaterial({ color: 0x3a2a20, opacity: .2 }));
+  wall.position.z = -7; wall.receiveShadow = true; scene.add(wall);
 
   /* мягкая тень на полу */
   const sh = document.createElement('canvas'); sh.width = sh.height = 128;
@@ -370,7 +470,14 @@ body[data-theme=euro] .cta{color:#f1ece4}
 
   /* ---------- обои на экране ---------- */
   const hex = c => '#' + new T.Color(c).getHexString();
+  const dfmt = new Intl.DateTimeFormat('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+  function clock() {
+    const d = new Date(), s = dfmt.format(d);
+    return { date: s.charAt(0).toUpperCase() + s.slice(1), time: d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0') };
+  }
+  let scrCols = null, scrStamp = '';
   function drawScreen(c1, c2) {
+    scrCols = [c1.clone(), c2.clone()];
     const w = 512, h = 1088, g = sctx;
     g.fillStyle = '#07070a'; g.fillRect(0, 0, w, h);
     let r = g.createRadialGradient(w * .3, h * .18, 0, w * .3, h * .18, w * 1.1);
@@ -378,9 +485,10 @@ body[data-theme=euro] .cta{color:#f1ece4}
     r = g.createRadialGradient(w * .85, h * .92, 0, w * .85, h * .92, w * 1.2);
     r.addColorStop(0, hex(c2)); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, w, h);
     g.fillStyle = '#000'; const iw = 150, ih = 44; g.beginPath(); g.roundRect((w - iw) / 2, 34, iw, ih, 22); g.fill();
+    const { date, time } = clock();
     g.fillStyle = '#fff'; g.textAlign = 'center';
-    g.font = '500 25px -apple-system,Inter,Segoe UI,sans-serif'; g.globalAlpha = .85; g.fillText('Воскресенье, 18 октября', w / 2, 190);
-    g.globalAlpha = 1; g.font = '600 168px -apple-system,Inter,Segoe UI,sans-serif'; g.fillText('9:41', w / 2, 340);
+    g.font = '500 26px "Manrope",-apple-system,Segoe UI,sans-serif'; g.globalAlpha = .88; g.fillText(date, w / 2, 190);
+    g.globalAlpha = 1; g.font = '300 168px "Manrope",-apple-system,Segoe UI,sans-serif'; g.fillText(time, w / 2, 336);
     g.fillStyle = 'rgba(255,255,255,.17)'; g.strokeStyle = 'rgba(255,255,255,.22)'; g.lineWidth = 2;
     [[28, 800], [268, 800]].forEach(([x, y]) => { g.beginPath(); g.roundRect(x, y, 216, 130, 36); g.fill(); g.stroke(); });
     g.beginPath(); g.roundRect(28, 946, 456, 72, 34); g.fill(); g.stroke();
@@ -397,9 +505,11 @@ body[data-theme=euro] .cta{color:#f1ece4}
       if (Math.abs(live[k].r - t.r) + Math.abs(live[k].g - t.g) + Math.abs(live[k].b - t.b) > .002) { live[k].lerp(t, .08); moving = true; } else live[k].copy(t);
     }
     backMat.color.copy(live.base); plateMat.color.copy(live.base); frameMat.color.copy(live.frame); lowerMat.color.copy(live.lower);
-    if (moving) drawScreen(live.base, live.lower);
+    const st = clock(); const stamp = st.date + st.time;
+    if (moving || stamp !== scrStamp) { scrStamp = stamp; drawScreen(live.base, live.lower); }
   }
   drawScreen(live.base, live.lower);
+  if (document.fonts) Promise.all([document.fonts.load('500 20px "Cormorant Garamond"'), document.fonts.load('500 20px Manrope')]).then(() => { scrStamp = ''; }).catch(() => {});
 
   /* ---------- раскладка / сцены ---------- */
   const secs = $$('main section'), dots = $('#dots');
@@ -414,6 +524,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
     e.target.classList.add('in');
+    document.body.classList.toggle('ordering', e.target.id === 's-order');
     const d = e.target.dataset;
     tgt = { ry: rad(+d.ry), rx: rad(+d.rx), x: +d.x, y: +(d.y || 0), s: +d.s };
     dotEls.forEach((a, i) => a.classList.toggle('on', i === secs.indexOf(e.target)));
@@ -426,7 +537,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
     ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
     ray.setFromCamera(ndc, camera); return ray.intersectObject(phone, true).length > 0;
   };
-  addEventListener('pointerdown', e => { if (e.target.closest('button,a,.toggle,.swatches')) return; if (hit(e)) { dragging = true; last = e; document.body.classList.add('grabbing'); } });
+  addEventListener('pointerdown', e => { if (e.target.closest('button,a,input,form,.swatches')) return; if (hit(e)) { dragging = true; last = e; document.body.classList.add('grabbing'); } });
   addEventListener('pointermove', e => {
     mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5;
     if (dragging) {
@@ -439,15 +550,38 @@ body[data-theme=euro] .cta{color:#f1ece4}
   addEventListener('pointerup', end); addEventListener('pointercancel', end);
 
   $('#flip').addEventListener('click', () => { flipOff += Math.PI; });
-  $$('.sw').forEach(b => b.addEventListener('click', () => {
-    $$('.sw').forEach(x => x.classList.toggle('on', x === b));
-    body.dataset.color = colorKey = b.dataset.c; flipOff += Math.PI * 2;
+  const colorName = {};
+  const setColor = c => {
+    if (c === colorKey) return;
+    $$('.sw,.cdot').forEach(x => x.classList.toggle('on', x.dataset.c === c));
+    body.dataset.color = colorKey = c; flipOff += Math.PI * 2;
+    $('#cname').textContent = colorName[c];
+  };
+  $$('.cdot').forEach(b => colorName[b.dataset.c] = b.dataset.n);
+  $$('.sw,.cdot').forEach(b => b.addEventListener('click', () => setColor(b.dataset.c)));
+  shadow.material.color.set(0x6b4a3a);
+
+  /* ---------- предзаказ ---------- */
+  let mem = { m: '256 ГБ', p: 139990 };
+  const rub = n => n.toLocaleString('ru-RU').replace(/\u00a0/g, ' ') + ' ₽';
+  $$('#oMem .chip').forEach(b => b.addEventListener('click', () => {
+    $$('#oMem .chip').forEach(x => x.classList.toggle('on', x === b));
+    mem = { m: b.dataset.m, p: +b.dataset.p }; $('#total').textContent = rub(mem.p);
   }));
-  $$('.toggle button').forEach(b => b.addEventListener('click', () => {
-    $$('.toggle button').forEach(x => x.classList.toggle('on', x === b));
-    body.dataset.theme = b.dataset.theme;
-    shadow.material.color.set(b.dataset.theme === 'euro' ? 0x6b4a3a : 0x000000);
-  }));
+  const form = $('#orderForm'), done = $('#done'), err = $('#err');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('#fName'), tel = $('#fTel');
+    name.classList.remove('bad'); tel.classList.remove('bad'); err.textContent = '';
+    if (name.value.trim().length < 2) { name.classList.add('bad'); err.textContent = 'Укажите имя.'; name.focus(); return; }
+    if (tel.value.replace(/\D/g, '').length < 10) { tel.classList.add('bad'); err.textContent = 'Введите номер телефона полностью, минимум 10 цифр.'; tel.focus(); return; }
+    $('#dName').textContent = name.value.trim();
+    $('#dNum').textContent = 'Предзаказ № IP18-' + String(Date.now()).slice(-6);
+    $('#dModel').textContent = 'iPhone 18 Pro Max'; $('#dColor').textContent = colorName[colorKey];
+    $('#dMem').textContent = mem.m; $('#dSum').textContent = rub(mem.p);
+    form.hidden = true; done.hidden = false;
+  });
+  $('#again').addEventListener('click', () => { done.hidden = true; form.hidden = false; });
 
   function resize() {
     const w = innerWidth, h = innerHeight;
@@ -479,6 +613,7 @@ body[data-theme=euro] .cta{color:#f1ece4}
   }
   requestAnimationFrame(frame);
 })();
+
 </script>
 </body>
 </html>
